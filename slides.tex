@@ -1,4 +1,5 @@
-\documentclass[t,xcolor={dvipsnames},final,aspectratio=169]{beamer}
+% handout/final = bullet points etc. one by one (final) or all on the slide immediately (handout)
+\documentclass[t,xcolor={dvipsnames},handout,aspectratio=169]{beamer}
 \beamertemplatenavigationsymbolsempty
 \usepackage{adjustbox}
 \usepackage{graphicx}
@@ -60,6 +61,8 @@
 \begin{itemize}
 \item    \textbf{Activity: Think-Pair-Share} (2 min)
     \end{itemize}
+\includegraphics[width=0.25\textwidth]{img/dalle_ai.png}
+\tiny Image produced in DALL-E December 2023 (Credit: Christine Fox)
 \end{frame}
 
 \section{How LLMs work}
@@ -105,7 +108,7 @@
     \textbf{Training Phase}
     \begin{itemize}
         \item Model learns patterns from large datasets
-        \item Adjusts internal parameters to minimize prediction errors
+        \item Adjusts model to minimize prediction errors
         \item Requires massive computational resources
         \item Can take weeks or months for large models
     \end{itemize}
@@ -114,15 +117,23 @@
 \end{frame}
 
 \begin{frame}{Model Learning Process: Validation Phase}
-    \textbf{Validation Phase}
+    \textbf{Validation and Testing}
+    \begin{center}
+\includegraphics[width=0.5\textwidth]{img/train_val_test.png}
+
+\tiny Source: \url{https://dqlab.id/5-panduan-praktis-membuat-model-machine-learning}
+\end{center}
+\note{
+During validation:\\
     \begin{itemize}
         \item Test model on new, unseen data
         \item Measure performance using metrics (accuracy, precision, recall)
-        \item Prevent overfitting (memorizing training data)
-        \item Tune hyperparameters for optimal performance
+        \item Prevent memorizing training data
+        \item Tune the model for optimal performance
     \end{itemize}
+    }
     
-    \textbf{Key insight}: Good models generalize to new data, not just memorize training examples
+    \textbf{Key insight}: Good models \textbf{generalize}, not just \textbf{memorize}
 \end{frame}
 
 \begin{frame}{Model Learning Process: Biases}
@@ -135,6 +146,7 @@
     \end{itemize}
     
     \textbf{Real-world impact}: Biased models can perpetuate harmful stereotypes
+    \note{Spend some time on each of the types of bias. Make sure they are clear.}
 \end{frame}
 
 \begin{frame}{What is Generative AI?}
@@ -156,9 +168,22 @@
     \toprule
     \textbf{Feature} & \textbf{Generative} & \textbf{Discriminative} \\
     \midrule
+    Primary Task & ? & ? \\
+    Output Type & ? & ? \\
+    Example & ? & ? \\
+    \bottomrule
+    \end{tabular}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Generative AI vs. Other Models}
+    \begin{center}
+    \begin{tabular}{lcc}
+    \toprule
+    \textbf{Feature} & \textbf{Generative} & \textbf{Discriminative} \\
+    \midrule
     Primary Task & Create new content & Classify existing data \\
     Output Type & Novel text/images & Labels/categories \\
-    Learning Focus & Data distribution & Decision boundaries \\
     Example & GPT, DALL-E & Spam filters, medical diagnosis \\
     \bottomrule
     \end{tabular}
@@ -185,10 +210,12 @@
         \item Appears confident and plausible
         \item Can include fake citations, non-existent facts
     \end{itemize}
-    
-    \textbf{Example}: Asking for "recent studies on X" might return made-up citations
-    
+\includegraphics[width=0.25\textwidth]{img/hallucination.png}
+    \note{
+    STOP AFTER SHOWING THE TITLE AND ACTUALLY WAIT FOR AN ANSWER\\
+    \textbf{Example}: Asking for ``recent studies on X'' might return made-up citations\\    
     \textbf{Risk}: Researchers might unknowingly use false information
+    }
 \end{frame}
 
 \begin{frame}{Limitations and Risks: Bias}
@@ -286,6 +313,16 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
 \end{frame}
 
 \section{Practical LLM Use in Research}
+\begin{frame}{Official UU policy}
+\url{https://www.uu.nl/en/organisation/ai-policy/researchers}
+\begin{itemize}
+\item Benefits and use cases
+\item Risks and limitations
+\item Effective use of GenAI (\emph{Background check})
+\item Citing GenAI in your work
+\end{itemize}
+\note{I don't want to go into details because this changes all the time.}
+\end{frame}
 
 \begin{frame}{LLM Use in \kp\ Research}
     \textbf{Appropriate \& Inappropriate Uses}
@@ -318,7 +355,25 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Working with others}
+\includegraphics[width=0.5\textwidth]{img/phd.jpg}
+\note{
+What can go wrong?
+
+Encourage student assistants, PhD candidates and postdocs to triple-check outputs of GenAI. GenAI's coding skills are great, but if we don't scrutinize what it does, we don't understand the intermediate steps, and it becomes harder to make choices. Especially when choosing methodologies.
+}
+\end{frame}
+
 \section{Conclusion}
+
+\begin{frame}{What we've done}
+\begin{itemize}
+        \item How LLMs Work
+        \item Limitations and Risks
+        \item Prompting CAs and Chatbots
+        \item Practical LLM Use in Research
+        \end{itemize}
+\end{frame}
 
 \begin{frame}{Key Takeaways: LLM Workflow}
     \begin{center}
