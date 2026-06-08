@@ -1,5 +1,5 @@
 % handout/final = bullet points etc. one by one (final) or all on the slide immediately (handout)
-\documentclass[t,xcolor={dvipsnames},handout,aspectratio=169]{beamer}
+\documentclass[t,xcolor={dvipsnames},final,aspectratio=169]{beamer}
 \beamertemplatenavigationsymbolsempty
 \usepackage{adjustbox}
 \usepackage{graphicx}
@@ -20,7 +20,7 @@
 }
 
 \title{How to handle LLMs in your research}
-\author{Pablo Mosteiro, Robert Bagheri\\
+\author{Pablo Mosteiro, Robert Bagheri, \"Ozg\"ur Togay, Laurence Frank\\
 \tiny{Partly generated with help of Qwen/Qwen2.5-7B-Instruct and moonshotai/Kimi-K2-Instruct-0905 via together and groq, respectively (HuggingChat).}}
 \institute{Department of Methodology \& Statistics}
 \date{\today}
@@ -417,7 +417,9 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
     \begin{itemize}
         \item \textbf{Literature review:} Summarizing papers (with verification)
         \item \textbf{Writing assistance:} Drafting, editing, proofreading
-        \item \textbf{Code generation:} Writing analysis scripts
+        \item \textbf{Code generation:} Writing analysis scripts \begin{alertblock}{Caveat}
+\textbf{only} when you know which statistical analysis is suitable
+\end{alertblock}
         \item \textbf{Brainstorming:} Generating research ideas
         \item \textbf{Translation:} Working with multilingual sources
     \end{itemize}
