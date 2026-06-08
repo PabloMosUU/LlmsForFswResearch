@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{smartdiagram}
 \usepackage{booktabs}
+\setbeameroption{show notes on second screen}
 
 \mode<presentation> {
     \usetheme{Frankfurt}
@@ -23,7 +24,7 @@
 \tiny{Partly generated with help of Qwen/Qwen2.5-7B-Instruct and moonshotai/Kimi-K2-Instruct-0905 via together and groq, respectively (HuggingChat).}}
 \institute{Department of Methodology \& Statistics}
 \date{\today}
-\logo{\includegraphics[scale=0.5]{img/UU-logo2011_CMYK-eps-converted-to.pdf}\hspace*{0.65\textwidth}\vspace{-8mm}}
+\logo{\includegraphics[scale=0.5]{img/UU-logo2011_CMYK-eps-converted-to.pdf}\hspace*{0.75\textwidth}\vspace{-8mm}}
 
 \begin{document}
 
@@ -45,7 +46,6 @@
 \section{Intro}
 
 {\setbeamertemplate{logo}{}
-{
 \begin{frame}{About us}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{img/nltp.png}
@@ -162,6 +162,37 @@ During validation:\\
     Mention also that they have a task model and a filter (as mentioned by CAT).
     }
 \end{frame}
+
+\begin{frame}{Text-GenAI components}
+\small
+\begin{tabular}{clll}
+& \textcolor{orange}{\textbf{consists of}} & \textbf{fed by} & \textbf{GPT learns} \\
+\includegraphics[width=0.05\textwidth]{img/graph.png} & \textbf{LLM} & textual internet data & ``knowledge'' of language and content \\[0.6em]
+\includegraphics[width=0.05\textwidth]{img/graph.png} & \textbf{Dialogue Model} & social media, forums & ``knowledge'' of dialogue structure \\[0.6em]
+\includegraphics[width=0.05\textwidth]{img/person.png} & \textbf{Task Model} & programmers & tasks, self knowledge and limits \\[0.6em]
+\includegraphics[width=0.05\textwidth]{img/person.png} & \textbf{Ethical Governor} & Kenian data labellers & ethical answers \\[0.6em]
+\end{tabular}
+
+\hfill \textcolor{orange}{\textbf{Reinforcement Learning}}
+
+\tiny Credit for this slide: Davitze K\"onning
+\note{
+``Knowledge'' b/c chatbots have no real knowledge or understanding; they produce what we want to hear based on predictions. \\
+As a result, chatbots are better at being linguistically correct than at being content-wise correct.
+
+The programmers also play a major role. You notice that adjustments are being made. \\
+If you ask certain questions, the chatbots no longer want to answer them. \\
+For example, there were many errors regarding the generation of incorrect sources.
+
+LLM = Self-supervised learning\\
+DM = learns how people interact with each other through social media, conversation data to make ChatGPT more human\\
+TM = How to handle specific tasks, such as writing code, making plans, etc\\
+EG = Filters, guidelines, and human supervision
+
+Kenyan data labelers: come back to this point later
+}
+\end{frame}
+
 
 \begin{frame}{Generative AI vs. Other Models}
     \begin{center}
