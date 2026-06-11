@@ -1,0 +1,237 @@
+---
+title: "Translating SPSS Syntax into R with the BRAVE(R) Framework"
+author: "Laurence EFrank"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: false
+    theme: flatly
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Before you start
+
+Asking an AI tool to translate SPSS syntax can be tricky if you accept the output 
+uncritically. The R code will usually look right and run without error, 
+but might use a different default than SPSS (a different variance assumption, 
+a different skewness formula, a different way of handling missing data). 
+The numbers then disagree, and you have no idea why.
+
+So in this exercise AI is a translator you supervise:
+
+1. Give the AI a precise, well-scoped prompt using the **BRAVE(R)** framework.
+2. Read the translation and identify where R's defaults differ from SPSS.
+3. Run the code on data you control and verify the results make sense.
+
+> **Data safety reminder.** Never paste real, unpublished, or participant data
+> into a GenAI tool. This exercise uses **simulated data** you generate yourself,
+> so nothing sensitive ever leaves your machine.
+
+## Learning objectives
+
+- Write a BRAVE(R) prompt that asks AI to translate SPSS syntax into R.
+- Recognise common SPSS versus R default mismatches and check for them.
+- Run and verify an AI-produced translation against simulated data.
+
+---
+
+# Set up your R environment
+
+You only need to do **one** of the two options below.
+
+### Option A: You already have RStudio installed
+
+1. Open **RStudio**.
+2. Create a new R Markdown file:
+   `File ▸ New File ▸ R Markdown…`, then keep the HTML output and click **OK**.
+3. To run a code chunk, click the small green ▶ ("Run Current Chunk") at the
+   top-right of the chunk, or place your cursor in it and press
+   **Ctrl+Shift+Enter** (Windows/Linux) / **Cmd+Shift+Enter** (Mac).
+4. To produce the full HTML document, click **Knit** at the top of the editor.
+
+### Option B: You do not have RStudio: use Posit Cloud (in your browser)
+
+[Posit Cloud](https://posit.cloud) runs RStudio in the browser — nothing to install.
+
+1. Go to **https://posit.cloud** and click **Sign Up** (the free plan is enough).
+2. After logging in, click **New Project ▸ New RStudio Project**. Wait a few
+   seconds for the workspace to load. You now have the full RStudio interface.
+3. Open an R Markwon file: in the **Files** pane (bottom-left) click **File**,
+   choose `New File`, then  `New R Markdown File`.
+4. Run chunks with the green ▶ button and **Knit** exactly as in Option A.
+
+**Tip.** On the free Posit Cloud plan, projects have limited monthly hours.
+Close the project tab when you are done so you don't burn through your time.
+
+---
+
+# The SPSS syntax you will translate
+
+This is the original analysis, written in SPSS syntax. Your job is not to run
+it in SPSS, but to obtain and then critically check an R translation of it.
+
+```text
+* Descriptive statistics for key variables.
+DESCRIPTIVES VARIABLES=score anxiety depression wellbeing
+  /STATISTICS=MEAN STDDEV MIN MAX KURTOSIS SKEWNESS.
+
+* Independent samples t-test (group: 1=control, 2=treatment).
+T-TEST GROUPS=group(1 2)
+  /MISSING=ANALYSIS
+  /VARIABLES=score
+  /CRITERIA=CI(.95).
+
+* One-way ANOVA with post-hoc tests.
+ONEWAY score BY group
+  /STATISTICS DESCRIPTIVES HOMOGENEITY
+  /MISSING ANALYSIS
+  /POSTHOC=TUKEY ALPHA(0.05).
+
+* Pearson correlations with pairwise deletion.
+CORRELATIONS
+  /VARIABLES=score anxiety depression wellbeing
+  /PRINT=TWOTAIL SIG
+  /MISSING=PAIRWISE.
+```
+
+---
+
+# Step 1 Create the simulated data
+
+This gives you a dataset with exactly the variables the SPSS syntax expects:
+`group` (coded **1 = control, 2 = treatment**, just like SPSS), plus `score`,
+`anxiety`, `depression`, and `wellbeing`. A few values are set to missing on
+purpose, so the `/MISSING` subcommands actually matter.
+
+Copy past the entire R code chunck into your R Markdown file.
+
+```{r simulate-data}
+set.seed(2025)
+
+n <- 60                          # respondents per group
+group <- rep(c(1, 2), each = n)  # SPSS-style numeric codes: 1 = control, 2 = treatment
+treat <- group - 1               # 0 = control, 1 = treatment (helper for the simulation)
+
+# Correlated outcomes with a small treatment effect baked in.
+anxiety    <- rnorm(2 * n, mean = 50 - 5 * treat, sd = 10)
+depression <- 0.6 * anxiety + rnorm(2 * n, mean = 10, sd = 8)
+wellbeing  <- 60 + 6 * treat - 0.3 * anxiety + rnorm(2 * n, mean = 0, sd = 8)
+score      <- 100 + 8 * treat - 0.2 * depression + rnorm(2 * n, mean = 0, sd = 15)
+
+dat <- data.frame(group, score, anxiety, depression, wellbeing)
+
+# Inject a few missing values so /MISSING handling becomes visible.
+set.seed(99)
+dat$anxiety[sample(nrow(dat), 5)]   <- NA
+dat$wellbeing[sample(nrow(dat), 4)] <- NA
+
+# Quick look
+str(dat)
+colSums(is.na(dat))   # how many missing per variable?
+```
+
+> **Note on group coding.** SPSS happily uses the numeric codes `1`/`2`. In R you
+> will almost always want `group` as a **factor** with readable labels — this is
+> itself part of a faithful translation, and the AI may or may not do it for you.
+
+---
+
+# Step 2 Ask AI to translate, using BRAVE(R)
+
+Write a single, well-scoped prompt. The bracketed letters show the BRAVE(R)
+component each part covers. Please do not use the BRAVER code in your prompt and
+leave out (Expectations), (Role), etc.
+
+Please translate the SPSS syntax below into equivalent R code **(Expectations)**.
+Act as a statistician fluent in both SPSS and R **(Role)**,
+writing for a social-science researcher who knows SPSS well but is new to R
+**(Audience)**. My data frame is called `dat` and contains `group`
+(1 = control, 2 = treatment), `score`, `anxiety`, `depression`, and `wellbeing`
+**(Variables)**. For **each** SPSS command, give the R equivalent, name the
+package you use, and add a one-line comment wherever R's default differs from
+SPSS. For example variance assumptions in the t-test, the skewness/kurtosis
+formula, p-value adjustment in correlations, and missing-data handling **(Variables)**.
+Only produce code I can run and check myself and do not fabricate any results
+**(Boundaries)**.
+>
+> ```
+> [paste the entire SPSS syntax here]
+> ```
+
+### Refine 
+
+After you read the answer, push on the weak spots. This could be a Refine step:
+
+The SPSS T-TEST output shows both an "equal variances assumed" and an "equal
+variances not assumed" row. Which one does your `t.test()` call give by default,
+and how do I get the other? **(Refine)**
+
+For the correlations, does your code adjust the p-values for multiple
+comparisons? SPSS does not. Please make sure the R version matches SPSS.
+**(Refine)**
+
+---
+
+# Step 3 Human oversight: the mismatches to check
+
+Before you trust the translation, walk this checklist. These are the points where
+a SPSS to R translation most often goes wrong:
+
+| SPSS behaviour | R default to watch for | What to verify |
+|---|---|---|
+| **Skewness / kurtosis** use the G1/G2 (SAS/SPSS) formulas | `psych::describe()` uses a different formula unless you set `type = 2` | Did the translation set `type = 2`? |
+| **T-TEST** reports *both* Student and Welch, plus Levene's test | `t.test()` gives **Welch only** (`var.equal = FALSE`) | Is the variance assumption stated? Is Levene's test included? |
+| **ONEWAY HOMOGENEITY** = Levene's test, shown automatically | R needs `car::leveneTest()` explicitly | Is homogeneity actually tested, not skipped? |
+| **CORRELATIONS** print raw two-tailed p-values (no correction) | `psych::corr.test()` adjusts p-values (Holm) unless `adjust = "none"` | Are the p-values uncorrected, like SPSS? |
+| **/MISSING=PAIRWISE** vs **ANALYSIS** | R functions differ: `cor()` needs `use = "pairwise.complete.obs"` | Is the deletion method correct per command? |
+| `group` is numeric `1`/`2` | Many R model functions expect a **factor** | Was `group` converted to a labelled factor? |
+
+**The oversight habit.** "It ran without error" is not "it matches SPSS." For
+each command, ask: would this give the same numbers as SPSS, and if not, why?
+
+---
+
+# Step 4 Run and verify
+
+Paste the AI's translation into the chunk below, run it, and check it against the
+checklist above and the model answer in the Appendix. Fix anything that doesn't
+match SPSS's behaviour.
+
+```{r your-translation, eval=FALSE}
+# >>> YOUR TASK: paste the AI's R translation here, then run and verify it <<<
+
+
+```
+
+A couple of quick independent checks you can always do yourself:
+
+```{r sanity-checks, eval=FALSE}
+# With only TWO groups, a one-way ANOVA F should equal the (Student) t squared.
+# This is a verification that your t-test and ANOVA translations agree.
+t_out <- t.test(score ~ group, data = dat, var.equal = TRUE)
+aov_out <- summary(aov(score ~ factor(group), data = dat))
+t_out$statistic^2        # t^2
+aov_out[[1]]$`F value`   # ANOVA F  -> should match t^2
+```
+
+---
+
+# Step 5 Reflection
+
+1. Which checklist item, if missed, would most change your conclusions — and why?
+2. Where did the AI's first translation differ from what SPSS actually does?
+3. How did the **Refine** step improve the translation compared with accepting
+   the first answer?
+
+---
+
+*BRAVE(R) framework: Fox & Boelen, GSLS GenAI Teacher Tutorial, Chapter 3,
+CC BY-SA-NC 4.0.*
