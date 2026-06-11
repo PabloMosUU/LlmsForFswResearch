@@ -9,7 +9,7 @@ on:
         type: choice
         options:
           - kp
-          - isw
+          - test
           - all
         default: all
 
