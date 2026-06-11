@@ -1,5 +1,5 @@
 % handout/final = bullet points etc. one by one (final) or all on the slide immediately (handout)
-\documentclass[t,xcolor={dvipsnames},handout,aspectratio=169]{beamer}
+\documentclass[t,xcolor={dvipsnames},final,aspectratio=169]{beamer}
 \beamertemplatenavigationsymbolsempty
 \usepackage{adjustbox}
 \usepackage{graphicx}
@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{smartdiagram}
 \usepackage{booktabs}
+\setbeameroption{show notes on second screen}
 
 \mode<presentation> {
     \usetheme{Frankfurt}
@@ -19,11 +20,11 @@
 }
 
 \title{How to handle LLMs in your research}
-\author{Pablo Mosteiro, Robert Bagheri\\
+\author{Pablo Mosteiro, Robert Bagheri, \"Ozg\"ur Togay, Laurence Frank\\
 \tiny{Partly generated with help of Qwen/Qwen2.5-7B-Instruct and moonshotai/Kimi-K2-Instruct-0905 via together and groq, respectively (HuggingChat).}}
 \institute{Department of Methodology \& Statistics}
 \date{\today}
-\logo{\includegraphics[scale=0.5]{img/UU-logo2011_CMYK-eps-converted-to.pdf}\hspace*{0.65\textwidth}\vspace{-8mm}}
+\logo{\includegraphics[scale=0.5]{img/UU-logo2011_CMYK-eps-converted-to.pdf}\hspace*{0.75\textwidth}\vspace{-8mm}}
 
 \begin{document}
 
@@ -45,7 +46,6 @@
 \section{Intro}
 
 {\setbeamertemplate{logo}{}
-{
 \begin{frame}{About us}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{img/nltp.png}
@@ -134,6 +134,50 @@ During validation:\\
     \textbf{Key insight}: Good models \textbf{generalize}, not just \textbf{memorize}
 \end{frame}
 
+\begin{frame}{Prompting phase}
+\centering
+\Large
+
+\only<1->{U}
+\only<2->{ weet}
+\only<3->{ wat}
+\only<4->{ ik}
+\only<5->{ ga}
+\only<6->{ zeggen}
+
+\vfill
+\vspace{3cm}
+
+\scriptsize 
+Credit for this slide: Albert Gatt \& Dong Nguyen
+
+\end{frame}
+
+\begin{frame}{Prompting phase}
+\centering
+\Large
+
+\only<1->{U}
+\only<2->{ weet}
+\only<3->{ wat}
+\only<4->{ ik}
+\only<5->{ ga}
+
+\vspace{1cm}
+
+\only<1>{\includegraphics[width=.6\textwidth]{img/soup_u.png}}
+\only<2>{\includegraphics[width=.6\textwidth]{img/soup_weet.png}}
+\only<3>{\includegraphics[width=.6\textwidth]{img/soup_wat.png}}
+\only<4>{\includegraphics[width=.6\textwidth]{img/soup_ik.png}}
+\only<5>{\includegraphics[width=.6\textwidth]{img/soup_ga.png}}
+
+\vfill
+
+\scriptsize
+Credit for this slide: Albert Gatt \& Dong Nguyen
+
+\end{frame}
+
 \begin{frame}{Model Learning Process: Biases}
     \textbf{Common Biases in LLMs}
     \begin{itemize}
@@ -162,6 +206,37 @@ During validation:\\
     Mention also that they have a task model and a filter (as mentioned by CAT).
     }
 \end{frame}
+
+\begin{frame}{Text-GenAI components}
+\small
+\begin{tabular}{clll}
+& \textcolor{orange}{\textbf{consists of}} & \textbf{fed by} & \textbf{GPT learns} \\
+\includegraphics[width=0.05\textwidth]{img/graph.png} & \textbf{LLM} & textual internet data & ``knowledge'' of language and content \\[0.6em]
+\includegraphics[width=0.05\textwidth]{img/graph.png} & \textbf{Dialogue Model} & social media, forums & ``knowledge'' of dialogue structure \\[0.6em]
+\includegraphics[width=0.05\textwidth]{img/person.png} & \textbf{Task Model} & programmers & tasks, self knowledge and limits \\[0.6em]
+\includegraphics[width=0.05\textwidth]{img/person.png} & \textbf{Ethical Governor} & Kenian data labellers & ethical answers \\[0.6em]
+\end{tabular}
+
+\hfill \textcolor{orange}{\textbf{Reinforcement Learning}}
+
+\tiny Credit for this slide: Davitze K\"onning
+\note{
+``Knowledge'' b/c chatbots have no real knowledge or understanding; they produce what we want to hear based on predictions. \\
+As a result, chatbots are better at being linguistically correct than at being content-wise correct.
+
+The programmers also play a major role. You notice that adjustments are being made. \\
+If you ask certain questions, the chatbots no longer want to answer them. \\
+For example, there were many errors regarding the generation of incorrect sources.
+
+LLM = Self-supervised learning\\
+DM = learns how people interact with each other through social media, conversation data to make ChatGPT more human\\
+TM = How to handle specific tasks, such as writing code, making plans, etc\\
+EG = Filters, guidelines, and human supervision
+
+Kenyan data labelers: come back to this point later
+}
+\end{frame}
+
 
 \begin{frame}{Generative AI vs. Other Models}
     \begin{center}
@@ -227,8 +302,6 @@ During validation:\\
         \item \textbf{Cultural bias:} Primarily represents Western perspectives
         \item \textbf{Academic bias:} Favors published, English-language sources
     \end{itemize}
-    
-    \textbf{Activity}: Can you identify bias in this LLM output?
 \end{frame}
 
 \begin{frame}{Limitations and Risks: Output Reliability}
@@ -243,6 +316,7 @@ During validation:\\
     \textbf{Best practice}: Always verify critical information from multiple sources
 \end{frame}
 
+{\setbeamertemplate{logo}{}
 \begin{frame}{Limitations and Risks: Ethics}
     \textbf{Ethical Concerns}
     \begin{itemize}
@@ -262,10 +336,10 @@ OpenAI: Achiam, J. et al (2024). \textit{GPT-4 Technical Report}. \url{https://a
 \footnotesize{Dubey et al. Redefining Cognitive Domains in the Era of ChatGPT: A Comprehensive Analysis of Artificial Intelligence's Influence and Future Implications. Med Res Arch. 2024 Jun;12(6):5383}
     \end{itemize}
 \end{frame}
+}
 
 \section{Prompting}
 {\setbeamertemplate{logo}{}
-{
 \begin{frame}{Effective Prompting: BRAVE(R) Framework}
   \begin{columns}
     \begin{column}{0.45\textwidth}
@@ -289,13 +363,17 @@ OpenAI: Achiam, J. et al (2024). \textit{GPT-4 Technical Report}. \url{https://a
 More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
 \end{frame}
 
+{\setbeamertemplate{logo}{}
 \begin{frame}{Ways to prompt}
 \includegraphics[width=0.9\textwidth]{img/huggingchat.png}
 \end{frame}
+}
 
+{\setbeamertemplate{logo}{}
 \begin{frame}{Switch models}
 \includegraphics[width=0.9\textwidth]{img/models.png}
 \end{frame}
+}
 
 {\setbeamertemplate{logo}{}
 \begin{frame}{Using an LLM locally (no server)}
@@ -304,6 +382,7 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
 \end{frame}
 }
 
+{\setbeamertemplate{logo}{}
 \begin{frame}{Versatile platform}
 \begin{itemize}
 \item \huge{OpenRouter.ai}
@@ -312,6 +391,7 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
 
 \footnotesize{\url{https://github.com/PabloMosUU/llm_demo}}
 \end{frame}
+}
 
 \section{Practical LLM Use in Research}
 \begin{frame}{Official UU policy}
@@ -337,7 +417,9 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
     \begin{itemize}
         \item \textbf{Literature review:} Summarizing papers (with verification)
         \item \textbf{Writing assistance:} Drafting, editing, proofreading
-        \item \textbf{Code generation:} Writing analysis scripts
+        \item \textbf{Code generation:} Writing analysis scripts \begin{alertblock}{Caveat}
+\textbf{only} when you know which statistical analysis is suitable
+\end{alertblock}
         \item \textbf{Brainstorming:} Generating research ideas
         \item \textbf{Translation:} Working with multilingual sources
     \end{itemize}
@@ -356,14 +438,28 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
     \end{itemize}
 \end{frame}
 
+{\setbeamertemplate{logo}{}
 \begin{frame}{Working with others}
-\includegraphics[width=0.5\textwidth]{img/phd.jpg}
+  \begin{columns}[T]
+    \begin{column}{0.45\textwidth}
+\includegraphics[width=0.75\textwidth]{img/ghost.png}
+    \end{column}
+    \begin{column}{0.45\textwidth}  %%<--- here
+    \begin{enumerate}
+    \item thinking for yourself
+    \item read literature
+    \item ask AI for advice
+    \item critically analyze
+    \end{enumerate}
+    \end{column}
+  \end{columns}
 \note{
 What can go wrong?
 
 Encourage student assistants, PhD candidates and postdocs to triple-check outputs of GenAI. GenAI's coding skills are great, but if we don't scrutinize what it does, we don't understand the intermediate steps, and it becomes harder to make choices. Especially when choosing methodologies.
 }
 \end{frame}
+}
 
 \section{Conclusion}
 
