@@ -1,0 +1,66 @@
+name: Build tutorial handouts
+
+on:
+  workflow_dispatch:
+    inputs:
+      department:
+        description: "Which tutorial to build"
+        required: true
+        type: choice
+        options:
+          - kp
+          - isw
+          - test
+          - all
+        default: all
+
+  push:
+    branches:
+      - main
+    paths:
+      - "tutorial_template.md"
+      - "tutorial_prompts/**"
+      - "scripts/build_tutorial.py"
+      - "requirements.txt"
+      - ".github/workflows/build-tutorial.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Validate merged tutorial configs
+        run: python scripts/build_tutorial.py --department all --validate-only
+
+      - name: Build selected tutorial from manual trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: python scripts/build_tutorial.py --department "${{ inputs.department }}" --render
+
+      - name: Build all tutorials on push
+        if: github.event_name == 'push'
+        run: python scripts/build_tutorial.py --department all --render
+
+      - name: Upload generated tutorials
+        uses: actions/upload-artifact@v4
+        with:
+          name: tutorial-handouts
+          path: tutorials/
+          if-no-files-found: error

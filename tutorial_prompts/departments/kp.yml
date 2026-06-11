@@ -1,0 +1,106 @@
+slug: "kp"
+department: "Department of Clinical Psychology"
+duration: "1 hour"
+
+example_1:
+  title: "Extract information from text"
+  scenario: "You have transcripts from therapy sessions and want to understand emotional patterns."
+  prompt: |-
+    Analyze the following therapy session excerpt for emotional tone and therapeutic indicators:
+
+    Client: "I've been feeling really anxious about going to work lately. It's like my stomach is in knots every Sunday night."
+    Therapist: "Can you tell me more about what happens in your body when you think about work?"
+    Client: "I feel tense, and I start worrying about everything that could go wrong."
+
+    Provide:
+    1. Overall emotional sentiment (scale 1-10, with 10 being most distressed)
+    2. Key therapeutic themes present
+    3. Therapeutic alliance indicators
+    4. Suggestions for therapeutic focus
+
+    Use clinical psychology terminology and maintain professional objectivity.    
+  task: "Use the BRAVE(R) framework to analyze the prompt, then use the FACTS framework to analyze the response. Discuss this with a classmate."
+  reflection: |-
+    1. Did the model stay close to the source text?
+    2. Did it provide evidence for its claims?
+    3. Did it add anything that was not in the text?
+    4. What would need manual checking?
+
+example_2:
+  title: "Code, annotate or classify text"
+  scenario: "You need to code open-ended responses from participants about their mental health experiences."
+  prompt: |-
+    Code the following interview response using thematic analysis:
+
+    Interview question: "How has anxiety affected your daily life?"
+    Response: "Well, it's like I'm constantly on edge. I can't concentrate at work because I'm worried something bad will happen. My partner says I seem distant, but I just feel overwhelmed all the time. Sometimes I can't sleep because my mind won't stop racing."
+
+    Provide:
+    1. Main themes (3-5 themes)
+    2. Sub-themes for each main theme
+    3. Relevant quotes for each theme
+    4. Brief description of each theme's meaning
+
+    Use psychology research terminology and maintain confidentiality.
+  task: "Use the FACTS framework to analyze the response. Discuss this with a classmate."
+  reflection: |-
+    1. Did the coding or classification seem justified?
+    2. Were ambiguous cases marked as ambiguous?
+    3. Did the model force categories where the evidence was weak?
+    4. How would you revise the prompt or codebook?
+
+example_3:
+  title: "Summarize or compare research"
+  scenario: "You need to quickly understand key findings from multiple papers. 
+  Use this prompt with a real abstract from PubMed or Google Scholar:"
+  prompt: |-
+    Summarize the research abstract below in 3 bullet points.
+
+    [INSERT ABSTRACT TEXT HERE]
+
+    Provide:
+    1. The main research question and method.
+    2. The key findings.
+    3. The main limitations and implications for future research.
+
+    Focus on information that would help a clinical psychologist decide whether to read the full paper.
+  task: "Use the FACTS framework to analyze the response. Discuss this with a classmate."
+  reflection: |-
+    1. Did the model only use information from the provided text?
+    2. Did it separate findings, limitations, and implications?
+    3. Did it overstate what can be concluded?
+    4. Would this help you decide whether to read the full source?
+
+exercise_1:
+  title: "Identifying hallucinations"
+  task: |-
+    Ask a model the following question:
+
+    What are the latest studies on virtual reality therapy for PTSD published in 2026?
+
+    Then check the answer against reliable external sources.
+  reflection: |-
+    1. Do these studies actually exist? Look up the titles in a search engine or academic database.
+    2. Are the journal names correct?
+    3. Do the author names match real researchers in the field?
+    4. Does the model make confident claims without enough evidence?
+
+    Document any fabricated or unverifiable information.
+
+    Note: HuggingChat is especially open about not having information. If you do not find any hallucinations, you may consider using a commercial tool for comparison.
+
+exercise_2:
+  title: "Bias detection"
+  task: |-
+    Compare responses to these two prompts:
+
+    Prompt A: Describe the typical profile of someone with depression.
+
+    Prompt B: Describe how depression manifests across different cultures and genders.
+
+    Pay attention to what the model treats as normal, typical, or universal.
+  reflection: |-
+    1. What differences do you notice between the two responses?
+    2. What assumptions does the model make?
+    3. Does the model present one group, context, or experience as the default?
+    4. How could the prompt be revised to reduce stereotyping or overgeneralization?
