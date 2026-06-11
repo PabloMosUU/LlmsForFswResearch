@@ -10,19 +10,8 @@ on:
         options:
           - kp
           - isw
-          - test
           - all
         default: all
-
-  push:
-    branches:
-      - main
-    paths:
-      - "tutorial_template.md"
-      - "tutorial_prompts/**"
-      - "scripts/build_tutorial.py"
-      - "requirements.txt"
-      - ".github/workflows/build-tutorial.yml"
 
 jobs:
   build:
@@ -33,7 +22,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -50,17 +39,16 @@ jobs:
       - name: Validate merged tutorial configs
         run: python scripts/build_tutorial.py --department all --validate-only
 
-      - name: Build selected tutorial from manual trigger
-        if: github.event_name == 'workflow_dispatch'
+      - name: Build selected tutorial
         run: python scripts/build_tutorial.py --department "${{ inputs.department }}" --render
 
-      - name: Build all tutorials on push
-        if: github.event_name == 'push'
-        run: python scripts/build_tutorial.py --department all --render
+      - name: Show generated files
+        run: find tutorials -type f -maxdepth 3 | sort
 
       - name: Upload generated tutorials
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: tutorial-handouts
+          name: tutorial-handouts-${{ inputs.department }}
           path: tutorials/
           if-no-files-found: error
+          retention-days: 14
