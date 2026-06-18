@@ -1,5 +1,5 @@
 % handout/final = bullet points etc. one by one (final) or all on the slide immediately (handout)
-\documentclass[t,xcolor={dvipsnames},handout,aspectratio=169]{beamer}
+\documentclass[t,xcolor={dvipsnames},final,aspectratio=169]{beamer}
 \beamertemplatenavigationsymbolsempty
 \usepackage{adjustbox}
 \usepackage{graphicx}
@@ -300,17 +300,46 @@ Kenyan data labelers: come back to this point later
     Caused by input data or model architecture.}
 \end{frame}
 
+{\setbeamertemplate{logo}{}
 \begin{frame}{Limitations and Risks: Output Reliability}
     \textbf{Reliability Issues}
     \begin{itemize}
         \item \textbf{Inconsistency:} Same prompt can yield different answers
+        \only<1>{
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.9\textwidth]{img/life1.png}
+            \includegraphics[width=0.9\textwidth]{img/life2.png}
+        \end{figure}
+        }
         \item \textbf{Context dependency:} Performance varies by domain
+        \only<2>{
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/susurro.png}
+        \end{figure}
+        }
         \item \textbf{Temporal drift:} Knowledge becomes outdated
+        \only<3>{
+        \begin{figure}
+            \centering
+\includegraphics[width=0.5\textwidth]{img/wordboundaries.png}
+\includegraphics[width=0.4\textwidth]{img/westgermanic.png}
+        \end{figure}
+  }
         \item \textbf{Prompt sensitivity:} Small changes affect outputs significantly
+        \only<4>{
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.45\textwidth]{img/basic.png}
+            \includegraphics[width=0.45\textwidth]{img/verybasic.png}
+        \end{figure}
+        }
     \end{itemize}
-    
+
     \textbf{Best practice}: Always verify critical information from multiple sources
 \end{frame}
+}
 
 {\setbeamertemplate{logo}{}
 \begin{frame}{Limitations and Risks: Ethics}
