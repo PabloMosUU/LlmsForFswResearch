@@ -4,7 +4,7 @@
 *For {{ department }}*
 {% endif %}
 
-**Course coordinators:** Ayoub Bagheri, Pablo Mosteiro (Department of Methodology and Statistics)
+**Course coordinators:** Robert Bagheri, Pablo Mosteiro, Ozgur Togay (Department of Methodology and Statistics)
 
 **Duration:** {{ duration }}
 
@@ -46,6 +46,10 @@ Copy this prompt to HuggingChat:
 ```text
 {{ example_1.prompt }}
 ```
+
+***NOTE***: Sometimes HuggingChat gets stuck "thinking". If that happens, do one of the following (or try both):
+1. Open up the "thinking" window and read the last bit that is written down before the end of the box
+1. Ask the model to provide you with an answer
 
 **Task:** {{ example_1.task }}
 
