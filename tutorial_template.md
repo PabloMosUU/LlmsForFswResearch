@@ -31,7 +31,7 @@ By the end of this tutorial, you will be able to:
 4. Once logged in, open a new chat. You can now access various open-source models.
 5. For each activity below, copy the prompt from the text box and paste it into your HuggingChat conversation. If the prompt contains a placeholder such as `[INSERT TEXT HERE]`, replace it before sending.
 
-**Why HuggingChat?** Uses open-source models such as Llama, Mistral, and Qwen, does not train models on your conversations.
+**Why HuggingChat?** Uses open-source models such as Llama, Mistral, and Qwen, does not train models on your conversations. If you already use another chat-based GenAI system, feel free to use that one instead.
 
 ---
 
