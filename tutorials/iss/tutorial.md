@@ -2,7 +2,7 @@
 
 *For the Department of Interdisciplinary Social Science*
 
-**Course coordinators:** Ayoub Bagheri, Pablo Mosteiro (Department of Methodology and Statistics)
+**Course coordinators:** Ayoub Bagheri, Pablo Mosteiro, Ozgur Togay (Department of Methodology and Statistics)
 
 **Duration:** 1 hour
 
@@ -30,7 +30,7 @@ By the end of this tutorial, you will be able to:
 5. Click **Settings** in the bottom-left menu and enable **Paste text directly**.
 6. For each activity below, copy the prompt from the text box and paste it into your HuggingChat conversation. If the prompt contains a placeholder such as `[INSERT TEXT HERE]`, replace it before sending.
 
-**Why HuggingChat?** Hosts open models such as Llama, Mistral, and Qwen, and does not train models on your conversations.
+**Why HuggingChat?** Hosts open models such as Llama, Mistral, and Qwen, and does not train models on your conversations. If you already use another chat-based GenAI system, feel free to use that one instead.
 
 ---
 
