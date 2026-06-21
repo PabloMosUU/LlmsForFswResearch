@@ -4,7 +4,7 @@
 *For the Department of {{ department }}*
 {% endif %}
 
-**Course coordinators:** Ayoub Bagheri, Pablo Mosteiro, Ozgur Togay (Department of Methodology and Statistics)
+**Course coordinators:** Robert Bagheri, Pablo Mosteiro, Ozgur Togay (Department of Methodology and Statistics)
 
 **Duration:** {{ duration }}
 
