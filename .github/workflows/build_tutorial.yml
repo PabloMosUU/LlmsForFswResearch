@@ -8,8 +8,9 @@ on:
         required: true
         type: choice
         options:
-          - kp
-          - test
+          - cp
+          - ccfs
+          - iss
           - all
         default: all
 
