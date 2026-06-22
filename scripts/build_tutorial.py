@@ -13,8 +13,8 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 ROOT = Path(__file__).resolve().parents[1]
 
 TEMPLATE_NAME = "tutorial_template.md"
-DEFAULTS_PATH = ROOT / "tutorial_prompts" / "default.yml"
-DEPARTMENTS_DIR = ROOT / "tutorial_prompts" / "departments"
+DEFAULTS_PATH = ROOT / "tutorial_assets" / "default.yml"
+DEPARTMENTS_DIR = ROOT / "tutorial_assets" / "departments"
 TUTORIALS_DIR = ROOT / "tutorials"
 
 REQUIRED_TOP_LEVEL_FIELDS = [
@@ -34,10 +34,38 @@ format:
   html:
     toc: true
     embed-resources: true
+    code-copy: true
 ---
 
 ```{=html}
 <style>
+/* Make prompt/code boxes wrap instead of requiring horizontal scrolling */
+pre,
+pre code,
+div.sourceCode,
+div.sourceCode pre,
+div.sourceCode code {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* Keep the prompt boxes readable */
+pre,
+div.sourceCode {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 1rem;
+  background-color: #f6f8fa;
+  overflow-x: hidden;
+}
+
+/* Leave room for Quarto's copy button */
+pre {
+  position: relative;
+}
+
+/* Slightly improve spacing between headings and scenario lines */
 h3 {
   margin-bottom: 0.85rem;
 }
@@ -49,6 +77,44 @@ h3 + p {
 ```
 """
 
+FRAMEWORK_LINKS = {
+    "BRAVE(R)": "[BRAVE(R)](#braver)",
+    "FACTS": "[FACTS](#facts)",
+}
+
+LINKABLE_FIELDS = {
+    "scenario",
+    "task",
+    "reflection",
+}
+
+
+def add_framework_links(value: Any, field_name: str | None = None) -> Any:
+    """
+    Add internal Markdown links to framework references in selected
+    user-facing YAML fields.
+
+    Prompt fields are deliberately excluded so that copied prompts do not
+    contain Markdown links.
+    """
+    if isinstance(value, dict):
+        return {
+            key: add_framework_links(item, field_name=key)
+            for key, item in value.items()
+        }
+
+    if isinstance(value, list):
+        return [
+            add_framework_links(item, field_name=field_name)
+            for item in value
+        ]
+
+    if isinstance(value, str) and field_name in LINKABLE_FIELDS:
+        for label, linked_label in FRAMEWORK_LINKS.items():
+            value = value.replace(label, linked_label)
+
+    return value
+    
 def load_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
@@ -158,17 +224,23 @@ def load_merged_config(slug: str) -> dict[str, Any]:
 
 def build_one(slug: str) -> dict[str, Path]:
     config = load_merged_config(slug)
-
+    render_config = add_framework_links(config)
+    
     env = Environment(
         loader=FileSystemLoader(ROOT),
         undefined=StrictUndefined,
         autoescape=False,
         trim_blocks=True,
         lstrip_blocks=True,
+        # Quarto heading IDs use syntax such as {#braver}. Jinja normally
+        # interprets "{#" as the start of a comment, so use delimiters that
+        # do not conflict with Quarto/Pandoc attributes.
+        comment_start_string="<#",
+        comment_end_string="#>",
     )
 
     template = env.get_template(TEMPLATE_NAME)
-    markdown_output = template.render(**config)
+    markdown_output = template.render(**render_config)
 
     tutorial_dir = TUTORIALS_DIR / config["slug"]
     tutorial_dir.mkdir(parents=True, exist_ok=True)
