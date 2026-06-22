@@ -48,6 +48,10 @@ Copy this prompt to HuggingChat:
 {{ example_1.prompt }}
 ```
 
+***NOTE***: Sometimes HuggingChat gets stuck "thinking". If that happens, do one of the following (or try both):
+1. Open up the "thinking" window and read the last bit that is written down before the end of the box
+1. Ask the model to provide you with an answer
+
 **Task:** {{ example_1.task }}
 
 *Note: LLMs can also help you build and refine prompts.*
