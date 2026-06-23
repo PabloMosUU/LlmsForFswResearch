@@ -65,26 +65,6 @@
 \end{frame}
 
 \section{How LLMs work}
-\begin{frame}{Artificial Intelligence, ML, and LLMs: Key Definitions}
-    \textbf{Artificial Intelligence (AI)}
-    \begin{itemize}
-        \item Computer systems performing tasks requiring human intelligence
-        \item Examples: Chess playing, image recognition, language translation
-    \end{itemize}
-    
-    \textbf{Machine Learning (ML)}
-    \begin{itemize}
-        \item Subset of AI using algorithms that improve through experience
-        \item Learns patterns from data without explicit programming
-    \end{itemize}
-    
-    \textbf{Large Language Models (LLMs)}
-    \begin{itemize}
-        \item AI systems trained on vast text amounts
-        \item Understand and generate human language
-        \item Examples: GPT, Claude, Qwen, Mistral
-    \end{itemize}
-\end{frame}
 
 \begin{frame}{AI vs ML vs LLM: The Relationship}
     \begin{center}
@@ -101,6 +81,21 @@
         \node[align=center] at (0,-4) {LLMs are a specific type of ML,\\ which is a subset of AI};
     \end{tikzpicture}
     \end{center}
+    \note{
+    Artificial Intelligence, ML, and LLMs: Key Definitions \\
+    \textbf{Artificial Intelligence (AI)} \\
+        Computer systems performing tasks requiring human intelligence\\
+        Examples: Chess playing, image recognition, language translation\\
+    
+    \textbf{Machine Learning (ML)}\\
+        Subset of AI using algorithms that improve through experience \\
+        Learns patterns from data without explicit programming \\
+    
+    \textbf{Large Language Models (LLMs)}\\
+        AI systems trained on vast text amounts \\
+        Understand and generate human language \\
+        Examples: GPT, Claude, Qwen, Mistral \\
+}
 \end{frame}
 
 \begin{frame}{Model Learning Process: Training Phase}
@@ -205,8 +200,6 @@ Credit for this slide: Albert Gatt \& Dong Nguyen
 \includegraphics[width=0.05\textwidth]{img/person.png} & \textbf{Ethical Governor} & Kenian data labellers & ethical answers \\[0.6em]
 \end{tabular}
 
-\hfill \textcolor{orange}{\textbf{Reinforcement Learning}}
-
 \tiny Credit for this slide: Davitze K\"onning
 \note{
 ``Knowledge'' b/c chatbots have no real knowledge or understanding; they produce what we want to hear based on predictions. \\
@@ -256,14 +249,17 @@ Kenyan data labelers: come back to this point later
 
 \begin{frame}{Activity: True or False?}
     \textbf{Instructions}: Raise your hand if you think the statement is TRUE
+    \begin{itemize}
+\item     \textbf{Statement 1}: Generative AI can only work with text
     
-    \textbf{Statement 1}: Generative AI can only work with text
+    \item \textbf{Statement 2}: All generative models are also discriminative\begin{alertblock}{Caveat}
+gold labels!
+\end{alertblock}
     
-    \textbf{Statement 2}: All generative models are also discriminative
+    \item \textbf{Statement 3}: Generative AI creates completely original content never seen in training
     
-    \textbf{Statement 3}: Generative AI creates completely original content never seen in training
-    
-    \textbf{Statement 4}: LLMs are a type of generative AI
+    \item \textbf{Statement 4}: LLMs are a type of generative AI
+    \end{itemize}
 \end{frame}
 
 \section{Limitations and Risks}
@@ -289,7 +285,6 @@ Kenyan data labelers: come back to this point later
         \item \textbf{Racial bias:} Associates certain groups with negative stereotypes
         \item \textbf{Cultural bias:} Primarily represents Western perspectives
         \item \textbf{Academic bias:} Favors published, English-language sources
-        \item \textbf{Representation bias:} Underrepresents certain groups
         \item \textbf{Confirmation bias:} Reinforces existing beliefs
         \item \textbf{Temporal bias:} Becomes outdated as language/society changes
     \end{itemize}
@@ -397,13 +392,10 @@ More info: \url{https://teachersguidegsls.nl/genai/generative-ai-guidelines/}
 {\setbeamertemplate{logo}{}
 \begin{frame}{Switch models}
 \includegraphics[width=0.9\textwidth]{img/models.png}
-\end{frame}
+\note{
+Using an LLM locally (no server) \\
+But model can still be train in a very closed-source way \\
 }
-
-{\setbeamertemplate{logo}{}
-\begin{frame}{Using an LLM locally (no server)}
-\includegraphics[width=0.8\textwidth]{img/lmstudio.png}
-\note{But model can still be train in a very closed-source way}
 \end{frame}
 }
 
@@ -477,26 +469,7 @@ Encourage student assistants, PhD candidates and postdocs to triple-check output
 
 \section{Conclusion}
 
-\begin{frame}{What we've done}
-\begin{itemize}
-        \item How LLMs Work
-        \item Limitations and Risks
-        \item Prompting CAs and Chatbots
-        \item Practical LLM Use in Research
-        \end{itemize}
-\end{frame}
-
 \begin{frame}{Key Takeaways: LLM Workflow}
-    \begin{center}
-    \smartdiagramset{set color list={blue!50,green!50,red!50,yellow!50,orange!50}}
-    \smartdiagram[flow diagram:horizontal]{
-        Understand LLMs,
-        Choose Ethical Models,
-        Apply Responsibly,
-        Verify Outputs,
-        Maintain Human Oversight
-    }
-    \end{center}
     \textbf{Remember:}
     \begin{itemize}
         \item LLMs are powerful tools, not replacements for human expertise
