@@ -1,0 +1,137 @@
+slug: "yf"
+department: "Youth & Family"
+
+example_1:
+  scenario: "You have an interview excerpt about an adolescent's experiences of parental involvement, privacy, and autonomy."
+  prompt: |-
+    Extract the key information from the interview excerpt below.
+
+    Interview excerpt:
+    "I usually tell my mum where I'm going and who I'm with. Most of the time I don't mind because she doesn't make a big thing out of it. If she keeps asking questions after I've already told her, though, then I sometimes just stop saying things. It feels different when I choose to tell her than when I feel like I have to."
+
+    Provide:
+    1. Examples of voluntary disclosure or concealment.
+    2. How the adolescent describes parental involvement and autonomy.
+    3. Exact words or phrases that support each point.
+    4. Any tension, ambiguity, or missing context.
+    5. What would need manual verification before using the interpretation in research.
+
+    Stay close to the excerpt. Do not infer motives or causal relationships that are not stated. Mark uncertain interpretations clearly.
+
+  task: "Use the BRAVE(R) framework to analyze the prompt, then use the FACTS framework to analyze the response. Discuss your evaluation with a classmate."
+
+  reflection: |-
+    1. Did the model distinguish voluntary disclosure from information given because of parental pressure?
+    2. Did it use evidence from the excerpt?
+    3. Did it preserve ambiguity rather than over-interpreting the adolescent's experience?
+    4. Did it add motives or causal explanations that were not stated?
+
+example_2:
+  scenario: "You need to code an interview response about parent-adolescent communication and autonomy using a predefined codebook."
+  prompt: |-
+    Code the following interview excerpt using the codebook below.
+
+    Interview excerpt:
+    "My parents have rules about when I need to be home and how late I can use my phone on school nights. Sometimes I actually think the rules help, especially when I have an exam. But when they just say no without explaining why, I get annoyed. I want them to trust that I can decide some things myself."
+
+    Codebook:
+    - AUTONOMY: The adolescent describes wanting, receiving, or exercising independence or decision-making freedom.
+    - PARENTAL_RULES_OR_MONITORING: The parent sets rules, asks for information, checks behaviour, or otherwise monitors the adolescent.
+    - AUTONOMY_SUPPORT: The parent allows choice, explains decisions, gives increasing freedom, or shows trust in the adolescent's ability to decide.
+    - TRUST: Trust between the adolescent and parent is explicitly mentioned or clearly described.
+    - CONFLICT_OR_TENSION: The adolescent describes disagreement, irritation, pressure, or conflict with a parent.
+    - AMBIGUOUS_OR_INSUFFICIENT: Use when the excerpt does not clearly support another code.
+
+    Provide a table with:
+    1. Text segment.
+    2. Assigned code or codes.
+    3. Exact supporting words.
+    4. Confidence: high, medium, or low.
+    5. Brief justification.
+    6. Alternative possible code, if relevant.
+
+    Do not force a code when the evidence is weak. Mark ambiguity explicitly.
+
+  task: "Use the FACTS framework to analyze the response. Discuss your evaluation with a classmate."
+
+  reflection: |-
+    1. Did the model apply the codebook consistently?
+    2. Did it distinguish parental rules or monitoring from autonomy support?
+    3. Did it assign multiple codes where appropriate?
+    4. Did it over-interpret the excerpt or force a code where evidence was weak?
+
+example_3:
+  scenario: "You need to quickly understand whether a scientific paper is relevant to your research on youth and families."
+  prompt: |-
+    Summarize the research abstract below for a Youth & Family researcher deciding whether the article is relevant.
+
+    Abstract:
+    [INSERT ABSTRACT TEXT HERE]
+
+    Provide:
+    1. The main research question.
+    2. The population and setting studied.
+    3. The study design and method.
+    4. The main concepts or variables studied and, if stated, how they were operationalized or measured.
+    5. The main findings.
+    6. Implications explicitly stated in the abstract.
+    7. Limitations explicitly stated in the abstract.
+    8. Important questions that would require reading the full paper.
+    9. Three search terms for finding related work.
+
+    Use only information from the abstract. Do not invent sample details, measures, effect sizes, mechanisms, limitations, or practical recommendations. Mark uncertain points clearly.
+
+  task: "Use the FACTS framework to analyze the response. Discuss your evaluation with a classmate."
+
+  reflection: |-
+    1. Did the model distinguish the research question, population, method, concepts, and findings?
+    2. Did it correctly separate information stated in the abstract from information that would require reading the full paper?
+    3. Did it avoid inventing details about measures, mechanisms, limitations, or implications?
+    4. Would this summary help you decide whether the article is relevant to your research?
+
+  extension:
+    title: "Go further: Ask your own questions about research"
+    text: |-
+      So far, the examples have given you a specific prompt and task. Now, create your own.
+
+      Keeping what you have learned so far in mind, choose one or more scientific papers relevant to your research and formulate a question you would genuinely like to ask about them. Depending on the platform, you can upload the papers directly or provide links to openly accessible papers.
+
+      For example, you could ask about:
+
+      - how a particular concept is defined or operationalized in a paper;
+      - how methodology differs between papers;
+      - similarities or differences in how studies approach the same research question;
+      - how findings across several papers could be synthesized;
+      - an unfamiliar method, theory, or result;
+      - anything else that would be useful for your own research.
+
+      Try to formulate the prompt yourself rather than copying one of the examples above. Keep [BRAVE(R)](#braver) and [FACTS](#facts) in mind when writing your question and evaluating the response.
+
+      **Task:** Ask your question and inspect the response. Then continue the conversation with at least one follow-up question. For example, ask the model to clarify something, provide evidence from the papers, compare one aspect in more detail, or reconsider part of its interpretation.
+
+exercise_1:
+  enabled: false
+
+exercise_2:
+  task: |-
+    Compare responses to these two prompts:
+
+    **Prompt A:**
+    ```default
+    Explain why parental monitoring can undermine adolescent autonomy.
+    ```
+
+    **Prompt B:**
+    ```default
+    Explain how parental monitoring may relate to adolescent autonomy. Consider possible positive, negative, null, bidirectional, and context-dependent relationships. Distinguish parental monitoring from adolescents' voluntary disclosure and from parental privacy invasion.
+    ```
+
+    Compare what the model presents as established, what mechanisms it assumes, and how much uncertainty it allows in each response.
+
+  reflection: |-
+    1. How did the framing of the question affect the model's conclusions?
+    2. Did Prompt A encourage the model to accept the proposed relationship rather than evaluate it?
+    3. Did Prompt B produce a more nuanced answer, or did it simply list possibilities without evaluating them?
+    4. Did the model distinguish parental monitoring, voluntary disclosure, and privacy invasion?
+    5. Did either response make causal claims without evidence?
+    6. How could you formulate the question to reduce leading assumptions while keeping it useful for your own research?
