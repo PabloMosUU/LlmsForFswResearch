@@ -281,11 +281,15 @@ Use only information from the abstract. Do not invent sample details, measures, 
 3. Did it avoid inventing details about measures, mechanisms, limitations, or implications?
 4. Would this summary help you decide whether the article is relevant to your research?
 
-#### Go further: Ask your own questions about research {.unnumbered .unlisted}
+---
 
-So far, the examples have given you a specific prompt and task. Now, create your own.
+### Example 4: Engage with research {.unnumbered .unlisted}
 
-Keeping what you have learned so far in mind, choose one or more scientific papers relevant to your research and formulate a question you would genuinely like to ask about them. Depending on the platform, you can upload the papers directly or provide links to openly accessible papers.
+**Scenario:** You want to use GenAI to ask your own questions about one or more scientific papers.
+
+So far, the examples have given you a specific prompt and task. Now, you create your own.
+
+Choose one or more scientific papers you are interested in and use the AI assistant as a conversation partner.
 
 For example, you could ask about:
 
@@ -298,7 +302,16 @@ For example, you could ask about:
 
 Try to formulate the prompt yourself rather than copying one of the examples above. Keep [BRAVE(R)](#braver) and [FACTS](#facts) in mind when writing your question and evaluating the response.
 
+If you are using HuggingChat, you cannot upload PDF files. Instead, provide a link to an openly accessible paper or paste the relevant text. On platforms that support PDFs, you can upload one or more papers directly.
+
 **Task:** Ask your question and inspect the response. Then continue the conversation with at least one follow-up question. For example, ask the model to clarify something, provide evidence from the papers, compare one aspect in more detail, or reconsider part of its interpretation.
+
+#### Reflection
+
+1. Did the model answer your question using the papers rather than relying on unsupported background knowledge?
+2. Could you trace important claims back to the source material?
+3. Did the model preserve differences between papers rather than combining them too quickly?
+4. What follow-up question made the response more useful?
 
 ---
 

@@ -136,10 +136,22 @@ Find an abstract or a short article excerpt that you would like to summarize. Co
 
 {{ example_3.reflection }}
 
-{% if example_3.extension is defined %}
-#### {{ example_3.extension.title }} {.unnumbered .unlisted}
+{% if example_4 is defined %}
+---
 
-{{ example_3.extension.text }}
+### Example 4: {{ example_4.title }} {.unnumbered .unlisted}
+
+**Scenario:** {{ example_4.scenario }}
+
+{{ example_4.instructions }}
+
+**Task:** {{ example_4.task }}
+
+{% if example_4.reflection is defined %}
+#### Reflection
+
+{{ example_4.reflection }}
+{% endif %}
 {% endif %}
 
 ---
