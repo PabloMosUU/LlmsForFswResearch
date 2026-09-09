@@ -16,6 +16,7 @@ TEMPLATE_NAME = "tutorial_template.md"
 DEFAULTS_PATH = ROOT / "tutorial_assets" / "default.yml"
 DEPARTMENTS_DIR = ROOT / "tutorial_assets" / "departments"
 TUTORIALS_DIR = ROOT / "tutorials"
+DATA_ANNOTATION_PROMPT_PATH = ROOT / "tutorial_assets" / "data_annotation_prompt_example.txt"
 
 REQUIRED_TOP_LEVEL_FIELDS = [
     "duration",
@@ -33,6 +34,8 @@ QUARTO_FRONT_MATTER = """---
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-expand: true
     embed-resources: true
     code-copy: true
 ---
@@ -73,7 +76,48 @@ h3 {
 h3 + p {
   margin-top: 0;
 }
+
+/* Keep the long research annotation prompt unwrapped and scrollable */
+pre.annotation-prompt,
+pre.annotation-prompt code {
+  white-space: pre !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+pre.annotation-prompt {
+  max-height: 32rem;
+  overflow: auto !important;
+}
 </style>
+
+<script>
+function openLinkedDetails() {
+  const id = decodeURIComponent(window.location.hash.slice(1));
+  if (!id) return;
+
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  let details = target.tagName === "DETAILS"
+    ? target
+    : target.closest("details");
+
+  while (details) {
+    details.open = true;
+    details = details.parentElement
+      ? details.parentElement.closest("details")
+      : null;
+  }
+
+  requestAnimationFrame(() => {
+    target.scrollIntoView({ block: "start" });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", openLinkedDetails);
+window.addEventListener("hashchange", openLinkedDetails);
+</script>
 ```
 """
 
@@ -115,6 +159,45 @@ def add_framework_links(value: Any, field_name: str | None = None) -> Any:
 
     return value
     
+def load_data_annotation_prompt() -> str:
+    if not DATA_ANNOTATION_PROMPT_PATH.exists():
+        raise FileNotFoundError(
+            f"Missing data annotation prompt: {DATA_ANNOTATION_PROMPT_PATH}"
+        )
+
+    # newline="" preserves the prompt file exactly, including line endings.
+    with DATA_ANNOTATION_PROMPT_PATH.open(
+        "r", encoding="utf-8", newline=""
+    ) as f:
+        return f.read()
+
+
+def encode_text_for_html_pre(text: str) -> str:
+    """
+    Encode text for literal display inside an HTML <pre><code> element.
+
+    Alphanumeric characters and ordinary spaces are left readable. Newlines,
+    tabs, punctuation, and symbols are emitted as numeric HTML entities. This
+    prevents Pandoc/Quarto from interpreting Markdown syntax inside the prompt
+    while preserving the visible/copyable text in the browser.
+    """
+    encoded: list[str] = []
+
+    for char in text:
+        if char == "\n":
+            encoded.append("&#10;")
+        elif char == "\r":
+            encoded.append("&#13;")
+        elif char == "\t":
+            encoded.append("&#9;")
+        elif char.isalnum() or char == " ":
+            encoded.append(char)
+        else:
+            encoded.append(f"&#{ord(char)};")
+
+    return "".join(encoded)
+
+
 def load_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
@@ -225,6 +308,9 @@ def load_merged_config(slug: str) -> dict[str, Any]:
 def build_one(slug: str) -> dict[str, Path]:
     config = load_merged_config(slug)
     render_config = add_framework_links(config)
+    render_config["data_annotation_prompt_example_html"] = encode_text_for_html_pre(
+        load_data_annotation_prompt()
+    )
     
     env = Environment(
         loader=FileSystemLoader(ROOT),
@@ -270,6 +356,8 @@ def available_departments() -> list[str]:
 
 
 def validate_all() -> None:
+    load_data_annotation_prompt()
+
     if not DEFAULTS_PATH.exists():
         raise FileNotFoundError(f"Missing defaults file: {DEFAULTS_PATH}")
 
@@ -317,6 +405,7 @@ def main() -> None:
         if args.department == "all":
             validate_all()
         else:
+            load_data_annotation_prompt()
             load_merged_config(args.department)
             print(f"Merged config for {args.department} is valid.")
         return

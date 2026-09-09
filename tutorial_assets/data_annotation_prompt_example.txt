@@ -1,0 +1,246 @@
+You will be provided with a Reddit comment and the title of the submission under which it was posted.
+
+Your task is to identify the **target** and the **stance** expressed toward it in the Comment, using the predefined list of political targets at the end.
+
+Only classify stances related to a target from the list. If the Comment refers to a similar target with different wording, select the exact matching entry from the list.  
+**Do not rename, paraphrase, or invent new target names.**  
+- If the post refers to a target not on the list, label it **"Other"**.  
+- If no political target is mentioned, label it **"None"**.  
+
+Use the Submission **only** to resolve ambiguity (e.g., resolving pronouns or vague references). **Do not infer stance from the Submission.**
+
+---
+
+## Classification Steps
+
+1. **Identify the Political Target**  
+   - Choose a target from the predefined list at the end.  
+   - If the post refers to a target not on the list, label it **"Other"**.  
+   - If no target is mentioned, label it **"None"** and skip stance classification.
+
+2. **Determine the Stance** (only if a target is identified)  
+   - **Positive**: clear support or praise  
+   - **Neutral**: mention without a clear stance  
+   - **Negative**: criticism or disapproval
+   - **None**: no stance can be identified
+
+3. **Return the classification**
+
+---
+
+## Output Format
+
+Your response must be a JSON object with the following fields:
+- "target" (string): The identified political target, from the list of Predefined Targets.
+- "stance" (string): The determined stance. Must be one of: "Positive", "Neutral", "Negative", or "None".
+- "confidence" (float): A confidence score between 0.0 and 1.0 (inclusive) representing how certain the model is about its classification.
+
+Example JSON output if a target and stance are identified:
+```json
+(
+  "target": "Donald Trump",
+  "stance": "Positive",
+  "confidence": 0.95
+)
+
+## Examples
+
+# Example 1
+Input:
+	Submission Title: New York Primary Results Megathread	
+	Comment: Didn't Sanders vote for that crime bill too? Has he evolved on that position or does he still support it?	
+Output:
+```json
+(
+  "target": "Bernie Sanders",
+  "stance": "Neutral",
+  "confidence": 0.8
+)
+
+# Example 2
+Input:
+	Submission Title: Flat-tax in the U.S. - a good idea?	
+	Comment: I'd say it's a good thing, but the reason for existing tax breaks is to encourage people to live in a way that is good for society; get educated, own property, have kids, etc.	
+Output:
+```json
+(
+  "target": "Tax cuts (general)",
+  "stance": "Positive",
+  "confidence": 0.90
+)
+
+# Example 3
+Input:
+	Submission Title: Is drug legalization/decriminalization sound policy? 
+	Comment: "Treating drug abuse as a medical problem instead of a criminal problem has been successful in European countries and has been a conclusion by various studies.
+	 
+	 (let's make the AutoMod happy: )
+	 
+	 https://www.drugabuse.gov/about-nida/noras-blog/2014/03/unodc-recommends-treating-addiction-health-not-legal-issue
+	 
+	 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2681083/"	
+Output:
+```json
+(
+  "target": "War on Drugs",
+  "stance": "Negative",
+  "confidence": 0.90
+)
+
+# Example 4
+Input:
+	Submission Title: What are the benefits and costs of the federal hiring freeze?	
+	Comment: I will note you didn't call out the dude who cited a government agency to show government agency hiring shouldn't be frozen.	
+Output:
+(
+  "target": "None",
+  "stance": "None",
+  "confidence": 1.0
+)
+
+---
+
+## Predefined Targets
+
+{predefined_targets}
+Target; Explanation
+Republican Party; Republican Party as an organization
+Republican politicians; Republican politicians as a group, including representatives, senators and governors
+Republican politician (generic); a Republican politician not on the list. 
+Republicans; Republican party supporters. A comment about both the Republican politicians and Republican party supporters would fall here. If it is only about Republican politicians, use the Republican politicians label.
+Conservatives; Conservative people and/or ideology
+Right-wingers; right-wing people and/or ideology
+Alt-right; alt-right people and/or ideology
+Independents; independent people (often used for voters without a party affiliation)
+Democratic Party; Democratic Party as an organization
+Democratic politicians; Democratic politicians as a group, including representatives, senators and governors
+Democratic politician (generic); a Democratic politician not on the list
+Democrats; Democratic party supporters. A comment about both the Democratic politicians and Democratic party supporters would fall here. If it is only about Democratic politicians, use the Democratic politicians label.
+Centrists; Centrist people and/or ideology
+Liberals; Liberal people and/or ideology
+Leftists; Leftist people and/or ideology
+Greens; Green people and/or ideology
+Socialists; Socialist people and/or ideology
+Antifa; Antifa political group and its supporters
+Abortion; Planned Parenthood also almost always fall under here, unless they specifically focus on Planned Parenthood as a public healthcare organization.
+Gun Control;
+LGBTQ rights;
+Vaccination;
+Belief in Institutional Racism;
+Belief in Climate Change;
+Immigration;
+Affirmative Action for Racial Equality;
+Affirmative Action for Gender Equality;
+Muslims;
+Jews;
+Catholics;
+Protestants;
+Christians;
+Atheists;
+Whites;
+Blacks;
+Hispanics;
+Asians;
+Indians;
+Government spending; Fiscal policies that favor an increased government budget  Use the specific label if it refers to a higher budget for education, healthcare, military, security, or any other item on the list.
+Tax cuts (general); Tax cuts that apply to everyone
+Tax cuts (for rich); Tax cuts that apply to the rich
+Tax cuts (for low-middle classes); Tax cuts that apply to the low and/or middle class
+Higher corporate tax; A comment calling for lower corporate tax rate would be labelled as Anti (so -1) Higher Corporate Tax,
+Higher taxes for the rich;
+Minimum wage/Higher minimum wage; establishing a minimum wage, or increasing it
+Social spending; social spending, except healthcare, education, Coronavirus stimulus checks and security  Examples: unemployment or childcare benefits, public funding of parks etc.
+Universal basic income; Universal Basic Income (UBI) in which people regularly receive a minimum income without any checks on conditions.
+Public healthcare; public healthcare, including Affordable Care Act (Obamacare), Medicare, Medicaid, healthcare reforms that would require more government funding
+Private healthcare; private healthcare. Examples include calls for more privatization, removal of existing social security programs (ACA/Medicaid etc.)
+Public education; public education. Examples include calls for more government funding for schools
+Private education; private education. Examples include calls for more privatization
+Student loan forgiveness; whether student loans and debt should be forgiven.
+Government bailouts; government bailout of private corporations, a common example would be bank bailouts during the 2008 financial crisis.
+Military spending; the US military spending/budget
+Police spending; the US police/law enforcement spending/budget. This is often referred within the state level, but covers both state and federal budgets.
+International Trade; International Trade. Examples include Trans-Pacific Partnership, US trade with China, US trade with Canada and Mexico (NAFTA), World Trade Organization etc.
+Protectionism; protectionist international trade policies, such as Tariffs and trade barriers.
+Nuclear Energy;
+Renewable/Green Energy;
+Fossil fuels;
+Trust in the US government (general); the Trust the US government as an organization that do not mention a party/president
+Trust in the Biden administration;
+Trust in the Trump administration;
+Trust in the Obama administration;
+Trust in the G.W. Bush administration;
+Trust in the US Military;
+Trust in the US Law Enforcement;
+Trust in the US electoral system; the US electoral system, including electoral college, two-party system, first past the post voting, electoral districts, campaign donations and funding (political action comittes, SuperPACs)
+Restrictions on Voting Access; the regulations that make voting less accessible. Examples include registration or ID checks. Counter examples, i.e. cases that make voting easier, would include mail-in ballots, ways to reduce voting queues, or helping those waiting in the voting queue.
+Trust in the US judicial system/courts; the US judicial system and courts in general. Examples include fair sentencing, costly court cases where corporations can outspend individuals
+Trust in the US Supreme Court; Specifically refering to the US Supreme Court
+Coronavirus stimulus checks;
+Discrimination based on Political Beliefs or Activities;
+Capital Punishment;
+Diversity, equity, and inclusion initiatives; DEI initiatives that seek to promote the fair treatment and full participation of all people, particularly groups who have historically been underrepresented or subject to discrimination. Criticized by Conservatives on the basis that it creates preferential treatment of minorities, forgoes merit as the basis of quality, and restricts freedom of speech.
+Critical Race Theory; CRT, which focuses on the relationships between social conceptions of race and ethnicity, social and political laws, and mass media. CRT also considers racism to be systemic in various laws and rules, not based only on individuals' prejudices. It is criticisized by (often) Conservatives for being anti-American and anti-White, for undermining American history and traditions. Mostly referred in the context of right-wing backlash and censure of CRT in schools.
+Multiculturalism; multiple cultures living together or interacting
+Cannabis legalization;
+Environmental Protections;
+Trust in the scientific community; the scientific community. Examples include the academia, advisory organizations such as World Health Organization, Centers for Disease Control and Prevention (CDC)
+Pornography;
+Euthanasia;
+AI-driven surveillance; whether the government should use AI technologies in surveillance.
+Social Media Regulations; whether social media platforms and the associated companies should be regulated more 
+Cryptocurrencies; cryptocurrencies, decentralized finance, and financial use of blockchain technology. A positive stance would favor those, a negative stance would be against or would call for more regulations.
+AI Regulations; the general attitudes toward AI regulation or ethics
+Use of AI in the workplace; the use of AI , often referred in the context of AI replacing human workers.
+Religion (general); religion that speak on general terms without referring to a specific belief system
+Net Neutrality; Net Neutrality, the principle that Internet service providers (ISPs) must treat all Internet communications equally.
+Zoning Laws; (the US, and often state or city level) Zoning Regulations, that divide land in a municipality into zones in which certain land uses are permitted or prohibited. Often referred in the context of certain municipalities blocking new constructions to keep house/land values higher, which exacerbate housing crisis.
+Whistleblowing/Leaks; whistleblowing or journalistic practice of leaking. Examples include Wikileaks, Panama Papers, Boeing whistleblowers, and often discussed through people such as Julian Assange, Edward Snowden, Chelsea Manning
+Censorship; censorship by an administrative or regulative body (the government, the state, and also municipal education boards). Often referred in the context of some US schools banning certain books.
+War on Drugs; the War on Drugs, the policy of a global campaign led by the United States federal government, of drug prohibition, foreign assistance, and military intervention, with the aim of reducing the illegal drug trade in the US. This is often referred in discussion of whether repression or legalization is better to reduce social harms caused by drugs.
+War on Terror; the War on Terror, a global campaign led by the US against militant Islamist movements, such as Al-Qaeda, Taliban, ISIS and offshoots. Does not include the 2003 invasion of Iraq
+Invasion of Iraq (2003); the invasion and occupation of Saddam's Iraq.
+NATO/US Allies; the NATO and other US Allies. Mainly referred within the context of the US' bases abroad, and whether the Allies are doing enough (financially or militarily)
+United Nations;
+European Union;
+Foreign military interventions by the US; the US military involvement in foreign conflicts. Examples include US involvement in the Syrian Civil War against Assad. Does not include Invasion or Iraq, War on Terror or War on Drugs.
+US Support for Israel;
+Israel;
+Palestine; Palestinian people. A pro-Palestinian stance would stress the rights of Palestinians to self-governance and highlight Israeli oppresion, an anti-Palestinian stance would focus more on Hamas' leadership of Palestine, or poor governance by the Palestinian Authority over the West Bank.
+Black Lives Matter movement;
+Blue Lives Matter movement; Blue Lives Matter movement was a counter-movement against Black Lives Matter and stressed the dangers the law enforcement faces
+MeToo movement; "the MeToo movement, and the practices employed or popularized by it, such as public exposures, social media campaigns against sexual harrasment and discrimination, and also ""cancelling"" of accused figures."
+Donald Trump;
+Joe Biden;
+Barack Obama;
+G.W. Bush;
+Bill Clinton;
+Ronald Reagan;
+Richard Nixon;
+Franklin D. Roosevelt;
+Theodore Roosevelt;
+Abraham Lincoln;
+Hillary Clinton;
+Bernie Sanders;
+Alexandria Ocasio-Cortez;
+Elizabeth Warren;
+George Soros;
+Elon Musk;
+Ted Cruz;
+Marco Rubio;
+Mitt Romney;
+Ron Paul;
+Newt Gingrich;
+John McCain;
+Trump supporters; Specifically referring to Trump supporters, rather than Republicans, Conservatives, or Right-wingers
+Biden supporters; Specifically referring to Biden supporters, rather than Democrats, Centrists, Liberals etc. 
+Obama supporters; Specifically referring to Obama supporters, rather than Democrats, Centrists, Liberals etc. 
+Bush supporters; Specifically referring to G.W.Bush supporters, rather than Republican, Conservatives, or Right-wingers
+Hillary Clinton supporters; Specifically referring to H.Clinton supporters, rather than Democrats, Centrists, Liberals etc. 
+Sanders supporters; Specifically referring to Sanders supporters, rather than Democrats, Leftists, Socialists etc. 
+N/A; When target cannot be identified
+Other; When there's an explicit target but is not listed
+Belief in Trump-Russia Collusion; Regarding alleged collusion between Donald Trump and Russian authorities for political gain, including influencing elections
+Belief in Russian Interference in Elections; Regarding attempts by Russia to influence US elections, without asserting whether this was intended to support Trump
+Increased Surveillance; the increase in state or law enforcement surveillance activities. If the main focus is on the use of AI in surveillance, categorize under 'AI-Surveillance'
+
+(Use the exact wording. Do not rename, paraphrase, or invent targets.)
