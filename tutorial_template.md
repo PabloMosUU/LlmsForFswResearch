@@ -4,7 +4,7 @@
 *For the Department of {{ department }}*
 {% endif %}
 
-**Course coordinators:** Robert Bagheri, Pablo Mosteiro, Ozgur Togay (Department of Methodology, Statistics and Data Science)
+**Course coordinators:** Robert Bagheri, Pablo Mosteiro, Ozgur Togay, Laurence Frank (Department of Methodology, Statistics and Data Science)
 
 **Duration:** {{ duration }}
 
