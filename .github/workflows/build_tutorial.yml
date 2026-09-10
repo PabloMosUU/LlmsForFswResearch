@@ -11,6 +11,7 @@ on:
           - cp
           - ccfs
           - iss
+          - yf
           - all
         default: all
 
