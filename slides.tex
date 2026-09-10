@@ -205,20 +205,6 @@ Kenyan data labelers: come back to this point later
     \toprule
     \textbf{Feature} & \textbf{Generative} & \textbf{Discriminative} \\
     \midrule
-    Primary Task & ? & ? \\
-    Output Type & ? & ? \\
-    Example & ? & ? \\
-    \bottomrule
-    \end{tabular}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Generative AI vs. Other Models}
-    \begin{center}
-    \begin{tabular}{lcc}
-    \toprule
-    \textbf{Feature} & \textbf{Generative} & \textbf{Discriminative} \\
-    \midrule
     Primary Task & Create new content & Classify existing data \\
     Output Type & Novel text/images & Labels/categories \\
     Example & GPT, DALL-E & Spam filters, medical diagnosis \\
@@ -247,13 +233,11 @@ gold labels!
 \begin{frame}{Limitations and Risks: Hallucinations}
     \textbf{What are hallucinations?}
     \begin{itemize}
-        \item LLMs generate false or nonsensical information
+        \item LLMs generate false or nonsensical information (fake citations, non-existent facts)
         \item Appears confident and plausible
-        \item Can include fake citations, non-existent facts
     \end{itemize}
 \includegraphics[width=0.25\textwidth]{img/hallucination.png}
     \note{
-    STOP AFTER SHOWING THE TITLE AND ACTUALLY WAIT FOR AN ANSWER\\
     \textbf{Example}: Asking for ``recent studies on X'' might return made-up citations\\    
     \textbf{Risk}: Researchers might unknowingly use false information
     }
@@ -265,7 +249,6 @@ gold labels!
         \item \textbf{Racial bias:} Associates certain groups with negative stereotypes
         \item \textbf{Cultural bias:} Primarily represents Western perspectives
         \item \textbf{Academic bias:} Favors published, English-language sources
-        \item \textbf{Representation bias:} Underrepresents certain groups
         \item \textbf{Confirmation bias:} Reinforces existing beliefs
         \item \textbf{Temporal bias:} Becomes outdated as language/society changes
     \end{itemize}
