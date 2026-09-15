@@ -10,8 +10,18 @@
 \usepackage{tikz}
 \usepackage{smartdiagram}
 \usepackage{booktabs}
-\setbeameroption{show notes on second screen}
-%\setbeameroption{hide notes}
+\providecommand{\shownotes}{0} % default: no notes
+\ifnum\shownotes=1
+  \setbeameroption{show notes on second screen}
+\else
+  \setbeameroption{hide notes}
+\fi
+% Define the macro for hiding content
+\newcommand{\teacheronly}[1]{
+    \ifnum\shownotes=1 
+        #1 % Content shown only if notes are enabled (Teacher mode)
+    \fi
+}
 
 \mode<presentation> {
     \usetheme{Frankfurt}
