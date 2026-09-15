@@ -40,7 +40,6 @@
         \item Limitations and Risks (10 min)
         \item Prompting CAs and Chatbots (10 min)
         \item Practical LLM Use in Research (10 min)
-        \item Conclusion (2 min)
     \end{itemize}
 \end{frame}
 
@@ -103,8 +102,7 @@
     \begin{itemize}
         \item Model learns patterns from large datasets
         \item Adjusts model to minimize prediction errors
-        \item Requires massive computational resources
-        \item Can take weeks or months for large models
+        \item Requires massive computational resources (weeks / months)
     \end{itemize}
     
     \textbf{Example}: LLM learns that "cat" often appears with "dog" in pet-related contexts
@@ -128,25 +126,6 @@ During validation:\\
     }
     
     \textbf{Key insight}: Good models \textbf{generalize}, not just \textbf{memorize}
-\end{frame}
-
-\begin{frame}{Prompting phase}
-\centering
-\Large
-
-\only<1->{U}
-\only<2->{ weet}
-\only<3->{ wat}
-\only<4->{ ik}
-\only<5->{ ga}
-\only<6->{ zeggen}
-
-\vfill
-\vspace{3cm}
-
-\scriptsize 
-Credit for this slide: Albert Gatt \& Dong Nguyen
-
 \end{frame}
 
 \begin{frame}{Prompting phase}
@@ -225,20 +204,6 @@ Kenyan data labelers: come back to this point later
     \toprule
     \textbf{Feature} & \textbf{Generative} & \textbf{Discriminative} \\
     \midrule
-    Primary Task & ? & ? \\
-    Output Type & ? & ? \\
-    Example & ? & ? \\
-    \bottomrule
-    \end{tabular}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Generative AI vs. Other Models}
-    \begin{center}
-    \begin{tabular}{lcc}
-    \toprule
-    \textbf{Feature} & \textbf{Generative} & \textbf{Discriminative} \\
-    \midrule
     Primary Task & Create new content & Classify existing data \\
     Output Type & Novel text/images & Labels/categories \\
     Example & GPT, DALL-E & Spam filters, medical diagnosis \\
@@ -267,13 +232,11 @@ gold labels!
 \begin{frame}{Limitations and Risks: Hallucinations}
     \textbf{What are hallucinations?}
     \begin{itemize}
-        \item LLMs generate false or nonsensical information
+        \item LLMs generate false or nonsensical information (fake citations, non-existent facts)
         \item Appears confident and plausible
-        \item Can include fake citations, non-existent facts
     \end{itemize}
 \includegraphics[width=0.25\textwidth]{img/hallucination.png}
     \note{
-    STOP AFTER SHOWING THE TITLE AND ACTUALLY WAIT FOR AN ANSWER\\
     \textbf{Example}: Asking for ``recent studies on X'' might return made-up citations\\    
     \textbf{Risk}: Researchers might unknowingly use false information
     }
@@ -285,9 +248,7 @@ gold labels!
         \item \textbf{Racial bias:} Associates certain groups with negative stereotypes
         \item \textbf{Cultural bias:} Primarily represents Western perspectives
         \item \textbf{Academic bias:} Favors published, English-language sources
-        \item \textbf{Representation bias:} Underrepresents certain groups
         \item \textbf{Confirmation bias:} Reinforces existing beliefs
-        \item \textbf{Temporal bias:} Becomes outdated as language/society changes
     \end{itemize}
     
     \textbf{Real-world impact}: Biased models can perpetuate harmful stereotypes
@@ -315,16 +276,8 @@ gold labels!
             \includegraphics[width=0.5\textwidth]{img/susurro.png}
         \end{figure}
         }
-        \item \textbf{Temporal drift:} Knowledge becomes outdated
-        \only<3>{
-        \begin{figure}
-            \centering
-\includegraphics[width=0.5\textwidth]{img/wordboundaries.png}
-\includegraphics[width=0.4\textwidth]{img/westgermanic.png}
-        \end{figure}
-  }
         \item \textbf{Prompt sensitivity:} Small changes affect outputs significantly
-        \only<4>{
+        \only<3>{
         \begin{figure}
             \centering
             \includegraphics[width=0.45\textwidth]{img/basic.png}
@@ -477,16 +430,5 @@ Encourage student assistants, PhD candidates and postdocs to triple-check output
 }
 \end{frame}
 }
-
-\section{Conclusion}
-
-\begin{frame}{Key Takeaways: LLM Workflow}
-    \textbf{Remember:}
-    \begin{itemize}
-        \item LLMs are powerful tools, not replacements for human expertise
-        \item Always prioritize ethics, privacy, and transparency
-        \item Verify outputs and maintain critical thinking
-    \end{itemize}
-\end{frame}
 
 \end{document}
