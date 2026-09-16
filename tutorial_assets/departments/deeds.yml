@@ -1,0 +1,179 @@
+slug: "deeds"
+department: "Development & Education of Youth in Diverse Societies"
+
+example_1:
+  title: "Extract information from an observation"
+  scenario: "You have a short classroom observation about multilingual pupils' participation during a collaborative learning activity."
+  prompt: |-
+    Extract the key information from the classroom observation below.
+
+    Identify:
+    1. Observable instances of participation and language use.
+    2. Teacher or peer actions that may be relevant to participation.
+    3. Ambiguities or missing context.
+
+    Support your points with details from the observation. Separate observation from interpretation, and do not infer traits or motives that are not directly supported.
+
+    Observation:
+    "During a small-group science task, the teacher asked pupils to discuss why one object floated and another sank. Lina first discussed her idea quietly in Arabic with Samira. Samira then summarized part of their discussion in Dutch. The teacher told the group that they could use any language while working out the problem, but that the group should present its final explanation in Dutch. Later, Lina raised her hand when the teacher asked groups to report back, but another pupil from the group answered after the teacher called on the group. At the end of the lesson, Lina completed the written explanation independently."
+
+  task: "Use the BRAVE(R) framework to analyze the prompt, then use the FACTS framework to analyze the response. Discuss your evaluation with a classmate."
+
+  reflection: |-
+    1. Did the model distinguish observation from interpretation?
+    2. Did it support its claims with details from the excerpt?
+    3. What would you need to know before drawing broader conclusions about participation or inclusion?
+
+example_2:
+  title: "Code qualitative data"
+  scenario: "You want to code an interview excerpt about digital learning, access, and participation using a small predefined codebook."
+  prompt: |-
+    Code the interview excerpt below using the codebook.
+
+    Codebook:
+    - DIGITAL_ACCESS: Access to devices, software, internet, or opportunities to use digital tools.
+    - PEDAGOGICAL_ADAPTATION: Teaching practices or materials are changed in response to pupils' needs or circumstances.
+    - SOCIAL_PARTICIPATION: Interaction, collaboration, help-seeking, or participation with others.
+    - LEARNER_PREFERENCE_OR_AGENCY: A pupil expresses a preference or choice in how they engage with learning.
+    - EQUITY_CONCERN: Differences in circumstances or resources that may affect opportunities to participate or learn.
+    - DATA_OR_ALGORITHM_USE: Digital scores or other data-driven outputs are considered in educational decisions.
+    - AMBIGUOUS_OR_INSUFFICIENT: The excerpt does not clearly support another code.
+
+    Provide a table with:
+    - text segment;
+    - assigned code or codes;
+    - brief justification with supporting words;
+    - confidence: high, medium, or low.
+
+    Multiple codes may apply. Mark ambiguity explicitly and do not add assumptions that are not supported by the excerpt.
+
+    Interview excerpt:
+    "We started using an online practice platform because pupils can work at their own pace. Some children finish the exercises on a tablet at home, but a few have told me that they share one device with brothers or sisters. I now give everyone time to use the platform during class and I keep a paper version available. One pupil told me she prefers the paper version because she can sit next to a classmate and ask for help. The platform scores are useful, but I do not want them to decide by themselves who needs extra support."
+
+  task: "Use the FACTS framework to analyze the response. Discuss your evaluation with a classmate."
+
+  reflection: |-
+    1. Were the codes applied consistently and supported by the text?
+    2. Did the model handle overlapping or ambiguous cases appropriately?
+    3. Did it introduce assumptions about disadvantage, achievement, or causality that were not present in the excerpt?
+    4. Which code definitions would you refine before using them on real data?
+
+example_3:
+  title: "Assess the relevance of research"
+  scenario: "You need to quickly assess whether a paper is relevant to research on children's development, learning, participation, or educational contexts."
+  prompt: |-
+    Summarize the research abstract below for a researcher deciding whether the study is relevant to their work on child or youth development and education.
+
+    Provide:
+    1. The research question, population, and setting.
+    2. The study design and main concepts or outcomes.
+    3. The main findings.
+    4. Any stated limitations or boundary conditions.
+    5. What would require reading the full paper.
+
+    If relevant, note how diversity, inequality, social context, or participation is addressed. Use only information from the abstract and mark uncertainty clearly.
+
+    Abstract:
+    [INSERT ABSTRACT TEXT HERE]
+
+  task: "Use the FACTS framework to analyze the response. Discuss your evaluation with a classmate."
+
+  reflection: |-
+    1. Did the model stay within what the abstract actually supports?
+    2. Did it avoid overstating causality or generalisability?
+    3. Would the summary help you decide whether to read the full paper?
+
+example_4:
+  enabled: true
+  title: "Optimize and verify R code"
+  scenario: "You have R code used in a research workflow and want to improve it without changing the analysis or results."
+  instructions: |-
+    Use **your own R code**, another piece of R code you are interested in, or the example below.
+
+    Give the AI enough context to understand what the code is intended to do, then adapt this prompt:
+
+    ```default
+    Review and optimize the R code below for a scientific research workflow.
+
+    Context:
+    [WHAT SHOULD THE CODE DO? WHAT ARE THE IMPORTANT INPUTS AND OUTPUTS?]
+
+
+    Improve the code where useful, focusing on readability and efficiency while preserving the analysis and its output.
+
+    Explain the main changes, flag any assumptions or new package dependencies, and suggest a simple way to check that the revised code gives equivalent results. Do not claim performance improvements unless they are actually measured.
+
+    R code:
+    [PASTE R CODE HERE]
+
+    ```
+
+    **If you need example code**, use this:
+
+    ```r
+    schools <- unique(df$school_id)
+    result <- data.frame()
+
+    for (i in seq_along(schools)) {
+      this_school <- schools[i]
+      tmp <- df[df$school_id == this_school & !is.na(df$score), ]
+
+      result <- rbind(
+        result,
+        data.frame(
+          school_id = this_school,
+          n = nrow(tmp),
+          mean_score = if (nrow(tmp) == 0) NA_real_ else mean(tmp$score)
+        )
+      )
+    }
+
+    result <- result[order(result$school_id), ]
+    ```
+
+    Assume `df` contains a school identifier and a numeric `score` that may be missing. The output should contain one row per school, including schools with only missing scores, and should remain ordered by `school_id`.
+
+  task: "Compare the original and revised code. Check whether the behaviour that matters for the analysis is preserved, and run the suggested checks in R if possible. Ask at least one follow-up question about a change or assumption you do not fully understand."
+
+  reflection: |-
+    1. Did the revised code preserve the intended analysis and important edge cases?
+    2. Were the main changes and assumptions clear?
+    3. What would you test before using the revised code in a real analysis?
+
+exercise_1:
+  title: "Verify generated literature"
+  task: |-
+    Ask the model:
+
+    ```default
+    Find three peer-reviewed empirical studies published in 2026 about digital technologies and social participation, learning, or development among children or adolescents. For each study, provide the title, authors, journal, DOI, study population, and one-sentence main finding.
+    ```
+
+    Verify the references and findings using reliable external sources such as journal websites, Crossref, Google Scholar, or another academic database.
+
+  reflection: |-
+    1. Do the publications and bibliographic details exist as given?
+    2. Do the reported findings match the original sources?
+    3. What would make this literature-search workflow more reliable?
+
+exercise_2:
+  title: "Detect assumptions in a research question"
+  task: |-
+    Compare responses to these two prompts:
+
+    **Prompt A:**
+    ```default
+    Explain why multilingual children participate less in classroom discussions than monolingual children.
+    ```
+
+    **Prompt B:**
+    ```default
+    Discuss factors that may be associated with variation in classroom participation among multilingual and monolingual children. Do not assume that a group difference exists. Distinguish empirical evidence from possible explanations.
+    ```
+
+    Compare how the framing affects what the model treats as established.
+
+  reflection: |-
+    1. Did Prompt A encourage the model to accept an unsupported assumption?
+    2. Did either response overgeneralise or rely on stereotypes?
+    3. How could you phrase your own research questions to reduce leading assumptions?
