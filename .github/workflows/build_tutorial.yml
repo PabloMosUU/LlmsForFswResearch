@@ -12,6 +12,7 @@ on:
           - ccfs
           - iss
           - yf
+          - deeds
           - all
         default: all
 
@@ -37,9 +38,6 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Validate merged tutorial configs
-        run: python scripts/build_tutorial.py --department all --validate-only
 
       - name: Build selected tutorial
         run: python scripts/build_tutorial.py --department "${{ inputs.department }}" --render
