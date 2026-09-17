@@ -69,7 +69,12 @@ jobs:
           quarto render index.qmd -P department:${{ github.event.inputs.department }}
           
           # 4. Render the exercises to HTML
-          quarto render exercises/* --to html
+          quarto render exercises/*.Rmd --to html
+          
+      - name: Copy supporting files
+        run: |
+          mkdir -p _site/exercises
+          cp exercises/CodeExample.md _site/exercises/CodeExample.md
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2

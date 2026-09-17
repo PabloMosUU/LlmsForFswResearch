@@ -1,0 +1,110 @@
+---
+title: "Using AI to support coding in R"
+author: "Laurence Frank"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: false
+    theme: flatly
+    highlight: tango
+    code_folding: show
+  pdf_document:
+    toc: true
+    toc_depth: '3'
+resources:
+  - files/CodeExample.md
+subtitle: Using the BRAVE(R) framework to optimise and annotate R code
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      fig.align = "center", fig.width = 7, fig.height = 4.5)
+```
+
+*For this tutorial AI (UU AI-Chat, model gpt-5.1) was used to improve the English grammar and style.*
+
+# Purpose of the exercise
+
+In this exercise, you will learn how to use an AI tool to support the optimisation and documentation of R code. The exercise assumes that you have written the code yourself and want to improve it with the help of GenAI.
+
+As discussed in the lecture, we do not recommend using AI tools to generate an entire R script from scratch, an approach sometimes referred to as *ghostwriting*. If an AI tool generates the code for you, you may not learn how it works or be able to assess whether it is correct. Instead, our aim is to maintain meaningful human oversight throughout the process.
+
+This is particularly important when the code is used for statistical analyses. Decisions about the choice, specification and interpretation of statistical methods require human judgement and appropriate subject-matter expertise. AI can assist with coding, but it should not replace expert oversight of the statistical analyses.
+
+During the exercise, AI is a sparring partner that *explains* and *suggests*. You remain the author and the final reviewer. If you cannot evaluate the output, that is a signal that you need to understand the topic better before you rely on the tool (human oversight).
+
+> **Data safety reminder.** Never paste private, unpublished, participant, or
+> otherwise sensitive data into an AI tool. 
+
+---
+
+## A BRAVE(R) prompt to optimise and annotate the R code
+
+In this exercise, you will use AI as a tutor to explain where and how your R code can be optimised and how it could be better annotated. You will use the BRAVE(R) framework to write a focused prompt. The BRAVE(R) components are: Boundaries, Role, Audience, Variables, Expectations, (Refine).
+
+In UU AI-Chat, you can choose the model you want to work with (see the bottom-right corner of the input window). For coding tasks, the model gpt-5.1 is recommended. Activate this model before you start writing your prompt.
+
+You will work with a Markdown file containing R code from a research project completed at DEEDS (see the file <a href="https://pablomosuu.github.io/LlmsForFswResearch/exercises/CodeExample.md" download>CodeExample.md</a>). Please note that UU AI-Chat currently does not allow uploading R Markdown files (extension .Rmd). It can, however, read Markdown files (extension .md). If your code is currently in an R Markdown file, you can do the following:
+
+In RStudio:
+
+* Go to File → New File → Markdown File (instead of “R Markdown File”).
+* Copy and paste the R code from your .Rmd file into this new .md file.
+* Save the Markdown file and upload it to UU AI-Chat.
+
+Your request to the AI will consist of two tasks:
+
+1. Optimise the code: identify where the code can be improved (e.g. clarity, efficiency, readability, reproducibility).
+2. Annotate the improved code: add or improve comments and explanations in the code.
+
+It is best to start with the optimisation task and only then ask for annotation of the improved code, rather than combining everything in a single prompt. This helps to avoid overloading the prompt and keeps the task clear and manageable.
+
+### A BRAVE(R) prompt for step 1: code optimisation
+Below is an example of how you might formulate your prompt using the BRAVE(R) framework:
+
+*Read the R code in the attached Markdown (.md) document and make suggestions for improving clarity, efficiency, and reproducibility **(E-Expectations)**. For this task, you are an expert in R programming for statistical analysis and you will take on the role of an R coding tutor **(R – Role)**. Your explanations should suit a researcher who can write basic R but has limited experience in writing optimised, well-annotated code **(A – Audience)**. First, briefly summarise what the script as a whole does. Next, indicate for which line(s) or code chunk(s) you see possibilities to improve or simplify the code, and explain why each suggested change would be an improvement **(V – Variables)**. Keep your feedback concise: one or two sentences per line or chunk, and do not provide rewritten code at this stage **(B – Boundaries)**.* 
+
+**Question 1**: Use the FACTS framework to critically evaluate the AI’s suggestions for code optimisation:
+
+* F – Focus: What are the main points and claims the AI makes about your code?
+* A – Authenticate: Choose one or two specific suggestions. How could you verify whether these suggestions are correct (e.g. R documentation, reproducible tests, consulting a colleague)?
+* C – Critique: Are there suggestions that are inaccurate, irrelevant, or not useful in your context? Explain why.
+* T – Think: How might these suggestions affect your analysis (e.g. results, interpretability, transparency)?
+* S – Stakeholders / Safety: Are there any risks if you would accept all suggestions without checking them? Who/What could be affected?
+
+**Question 2**: Responsible checking and human oversight
+
+a. Describe at least two checks you would perform yourself before accepting any changes to your script (e.g. running tests on a small dataset, checking R help pages, comparing to your original analysis plan).
+b. Identify one suggestion from the AI that you would not implement (or would modify) and explain why.
+c. How would you document which AI suggestions you accepted or rejected (e.g. comments in code)?
+
+**Question 3**: Adjusting the code with human‑in‑the‑loop
+
+Outline a short, practical plan (3–5 steps) for how you would proceed to adjust your code based on the AI’s feedback, while maintaining human oversight. For example, you might:
+
+* Select and rank suggestions (most useful / least disruptive first).
+* Implement only a subset of changes manually, step by step.
+* Re‑run the script on test data and compare outputs to your original results.
+* Add comments explaining why you changed certain parts and why you left others unchanged.
+
+
+### A BRAVE(R) prompt for step 2: annotating your improved R code
+
+Select a part of the code you would like to adapt according to the recommendation of the AI tool. Craft a BRAVE(R) prompt that asks an AI coding tutor to help you annotate your improved R code. Use the template below and adapt it to your own script.
+
+B – Boundaries: How long and detailed may the comments be?
+
+R – Role: Which role should the AI take (e.g. “R coding tutor for social science researchers”)?
+
+A – Audience: For whom are the comments written (e.g. “a researcher with basic R skills who needs to understand the workflow”)?
+
+V – Variables: Which parts should be annotated (e.g. each major code chunk, data‑cleaning steps, model fitting, plotting)?
+
+E – Expectations: What is the main goal (e.g. “add clear, correct comments so that another researcher can reproduce and understand my analysis”)?
+
+
+
+
