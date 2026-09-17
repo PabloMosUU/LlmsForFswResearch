@@ -18,6 +18,8 @@ This page contains the course materials and information for *How to handle LLMs 
 
 ## Optional exercises
 
+- [Using AI to support coding in R](exercises/GenAI_support_Rcoding.html)
+
 - [R Boxplot](exercises/R_Boxplot_exercise.html)
 
 - [SPSS to R translation](exercises/SPSS_to_R_translation_exercise.html)
