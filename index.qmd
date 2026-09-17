@@ -1,23 +1,23 @@
 ---
 title: "How to handle LLMs in your research"
+params:
+  department: cp
 ---
 
 ```{r, include=FALSE}
-# Capture department from `--metadata department=...`
-dept <- knitr::opts_knit$get("department")
-if (is.null(dept)) dept <- "cp"  # fallback
+dept <- params$department
 ```
 
 # Materials
 
 This page contains the course materials and information for *How to handle LLMs in your research*.
 
-- [Lecture slides](slides/slides.pdf)
+- [Lecture slides](slides/presentation-nonotes.pdf)
 
 - [Tutorial](tutorials/`r dept`/tutorial.html)
 
 ## Optional exercises
 
-- [R Boxplot](documents/R_Boxplot_exercise.html)
+- [R Boxplot](exercises/R_Boxplot_exercise.html)
 
-- [SPSS to R translation](documents/SPSS_to_R_translation_exercise.html)
+- [SPSS to R translation](exercises/SPSS_to_R_translation_exercise.html)
