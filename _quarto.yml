@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Pablo Mosteiro"
+  title: "LLMs for research"
   navbar:
     left:
       - href: index.qmd
