@@ -1,0 +1,17 @@
+---
+title: "How to handle LLMs in your research"
+---
+
+# Materials
+
+This page contains the course materials and information for *How to handle LLMs in your research*.
+
+- [Lecture slides](slides/slides.pdf)
+
+- [Tutorial](documents/tutorial.html)
+
+## Optional exercises
+
+- [R Boxplot](documents/R_Boxplot_exercise.html)
+
+- [SPSS to R translation](documents/SPSS_to_R_translation_exercise.html)
