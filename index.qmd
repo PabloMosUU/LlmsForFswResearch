@@ -2,13 +2,19 @@
 title: "How to handle LLMs in your research"
 ---
 
+```{r, include=FALSE}
+# Capture department from `--metadata department=...`
+dept <- knitr::opts_knit$get("department")
+if (is.null(dept)) dept <- "cp"  # fallback
+```
+
 # Materials
 
 This page contains the course materials and information for *How to handle LLMs in your research*.
 
 - [Lecture slides](slides/slides.pdf)
 
-- [Tutorial](documents/tutorial.html)
+- [Tutorial](tutorials/`r dept`/tutorial.html)
 
 ## Optional exercises
 
