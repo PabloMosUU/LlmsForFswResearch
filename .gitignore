@@ -16,3 +16,7 @@ tutorial.html
 *.html
 !tutorials/**/*.html
 presentation-*notes.pdf
+
+/.quarto/
+**/*.quarto_ipynb
+_site
