@@ -50,11 +50,14 @@ jobs:
 
       - name: Prepare & Render Site
         run: |
-          # 1. Generate department-specific tutorial & update index
+          # 1. Generate department-specific tutorial
           python scripts/build_tutorial.py --department ${{ github.event.inputs.department }} --render
           
-          # 2. Render the rest of the project (slides, index, etc.) to HTML
-          quarto render --to html
+          # 2. Render the slides to PDF
+          make
+          
+          # 3. Render the index to HTML
+          quarto render index.qmd --metadata department=${{ github.event.inputs.department }}
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
