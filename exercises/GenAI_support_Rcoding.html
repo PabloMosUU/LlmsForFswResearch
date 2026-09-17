@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Laurence Frank">
+<meta name="dcterms.date" content="2026-09-17">
 
-<title>How to handle LLMs in your research – LLMs for research</title>
+<title>Using AI to support coding in R – LLMs for research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +31,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3e9b1289f5f353c49b617ce48ad2bc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3e9b1289f5f353c49b617ce48ad2bc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">LLMs for research</span>
     </a>
   </div>
@@ -95,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -115,14 +117,27 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How to handle LLMs in your research</h1>
+<h1 class="title">Using AI to support coding in R</h1>
+<p class="subtitle lead">Using the BRAVE(R) framework to optimise and annotate R code</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Laurence Frank </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 17, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -132,22 +147,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="materials" class="level1">
-<h1>Materials</h1>
-<p>This page contains the course materials and information for <em>How to handle LLMs in your research</em>.</p>
+<p><em>For this tutorial AI (UU AI-Chat, model gpt-5.1) was used to improve the English grammar and style.</em></p>
+<section id="purpose-of-the-exercise" class="level1">
+<h1>Purpose of the exercise</h1>
+<p>In this exercise, you will learn how to use an AI tool to support the optimisation and documentation of R code. The exercise assumes that you have written the code yourself and want to improve it with the help of GenAI.</p>
+<p>As discussed in the lecture, we do not recommend using AI tools to generate an entire R script from scratch, an approach sometimes referred to as <em>ghostwriting</em>. If an AI tool generates the code for you, you may not learn how it works or be able to assess whether it is correct. Instead, our aim is to maintain meaningful human oversight throughout the process.</p>
+<p>This is particularly important when the code is used for statistical analyses. Decisions about the choice, specification and interpretation of statistical methods require human judgement and appropriate subject-matter expertise. AI can assist with coding, but it should not replace expert oversight of the statistical analyses.</p>
+<p>During the exercise, AI is a sparring partner that <em>explains</em> and <em>suggests</em>. You remain the author and the final reviewer. If you cannot evaluate the output, that is a signal that you need to understand the topic better before you rely on the tool (human oversight).</p>
+<blockquote class="blockquote">
+<p><strong>Data safety reminder.</strong> Never paste private, unpublished, participant, or otherwise sensitive data into an AI tool.</p>
+</blockquote>
+<hr>
+<section id="a-braver-prompt-to-optimise-and-annotate-the-r-code" class="level2">
+<h2 class="anchored" data-anchor-id="a-braver-prompt-to-optimise-and-annotate-the-r-code">A BRAVE(R) prompt to optimise and annotate the R code</h2>
+<p>In this exercise, you will use AI as a tutor to explain where and how your R code can be optimised and how it could be better annotated. You will use the BRAVE(R) framework to write a focused prompt. The BRAVE(R) components are: Boundaries, Role, Audience, Variables, Expectations, (Refine).</p>
+<p>In UU AI-Chat, you can choose the model you want to work with (see the bottom-right corner of the input window). For coding tasks, the model gpt-5.1 is recommended. Activate this model before you start writing your prompt.</p>
+<p>You will work with a Markdown file containing R code from a research project completed at DEEDS (see the file <a href="https://pablomosuu.github.io/LlmsForFswResearch/exercises/CodeExample.md" download="">CodeExample.md</a>). Please note that UU AI-Chat currently does not allow uploading R Markdown files (extension .Rmd). It can, however, read Markdown files (extension .md). If your code is currently in an R Markdown file, you can do the following:</p>
+<p>In RStudio:</p>
 <ul>
-<li><p><a href="slides/presentation-nonotes.pdf">Lecture slides</a></p></li>
-<li><p><a href="tutorials/deeds/tutorial.html">Tutorial</a></p></li>
+<li>Go to File → New File → Markdown File (instead of “R Markdown File”).</li>
+<li>Copy and paste the R code from your .Rmd file into this new .md file.</li>
+<li>Save the Markdown file and upload it to UU AI-Chat.</li>
 </ul>
-<section id="optional-exercises" class="level2">
-<h2 class="anchored" data-anchor-id="optional-exercises">Optional exercises</h2>
+<p>Your request to the AI will consist of two tasks:</p>
+<ol type="1">
+<li>Optimise the code: identify where the code can be improved (e.g.&nbsp;clarity, efficiency, readability, reproducibility).</li>
+<li>Annotate the improved code: add or improve comments and explanations in the code.</li>
+</ol>
+<p>It is best to start with the optimisation task and only then ask for annotation of the improved code, rather than combining everything in a single prompt. This helps to avoid overloading the prompt and keeps the task clear and manageable.</p>
+<section id="a-braver-prompt-for-step-1-code-optimisation" class="level3">
+<h3 class="anchored" data-anchor-id="a-braver-prompt-for-step-1-code-optimisation">A BRAVE(R) prompt for step 1: code optimisation</h3>
+<p>Below is an example of how you might formulate your prompt using the BRAVE(R) framework:</p>
+<p><em>Read the R code in the attached Markdown (.md) document and make suggestions for improving clarity, efficiency, and reproducibility <strong>(E-Expectations)</strong>. For this task, you are an expert in R programming for statistical analysis and you will take on the role of an R coding tutor <strong>(R – Role)</strong>. Your explanations should suit a researcher who can write basic R but has limited experience in writing optimised, well-annotated code <strong>(A – Audience)</strong>. First, briefly summarise what the script as a whole does. Next, indicate for which line(s) or code chunk(s) you see possibilities to improve or simplify the code, and explain why each suggested change would be an improvement <strong>(V – Variables)</strong>. Keep your feedback concise: one or two sentences per line or chunk, and do not provide rewritten code at this stage <strong>(B – Boundaries)</strong>.</em></p>
+<p><strong>Question 1</strong>: Use the FACTS framework to critically evaluate the AI’s suggestions for code optimisation:</p>
 <ul>
-<li><p><a href="exercises/GenAI_support_Rcoding.html">Using AI to support coding in R</a></p></li>
-<li><p><a href="exercises/R_Boxplot_exercise.html">R Boxplot</a></p></li>
-<li><p><a href="exercises/SPSS_to_R_translation_exercise.html">SPSS to R translation</a></p></li>
+<li>F – Focus: What are the main points and claims the AI makes about your code?</li>
+<li>A – Authenticate: Choose one or two specific suggestions. How could you verify whether these suggestions are correct (e.g.&nbsp;R documentation, reproducible tests, consulting a colleague)?</li>
+<li>C – Critique: Are there suggestions that are inaccurate, irrelevant, or not useful in your context? Explain why.</li>
+<li>T – Think: How might these suggestions affect your analysis (e.g.&nbsp;results, interpretability, transparency)?</li>
+<li>S – Stakeholders / Safety: Are there any risks if you would accept all suggestions without checking them? Who/What could be affected?</li>
 </ul>
+<p><strong>Question 2</strong>: Responsible checking and human oversight</p>
+<ol type="a">
+<li>Describe at least two checks you would perform yourself before accepting any changes to your script (e.g.&nbsp;running tests on a small dataset, checking R help pages, comparing to your original analysis plan).</li>
+<li>Identify one suggestion from the AI that you would not implement (or would modify) and explain why.</li>
+<li>How would you document which AI suggestions you accepted or rejected (e.g.&nbsp;comments in code)?</li>
+</ol>
+<p><strong>Question 3</strong>: Adjusting the code with human‑in‑the‑loop</p>
+<p>Outline a short, practical plan (3–5 steps) for how you would proceed to adjust your code based on the AI’s feedback, while maintaining human oversight. For example, you might:</p>
+<ul>
+<li>Select and rank suggestions (most useful / least disruptive first).</li>
+<li>Implement only a subset of changes manually, step by step.</li>
+<li>Re‑run the script on test data and compare outputs to your original results.</li>
+<li>Add comments explaining why you changed certain parts and why you left others unchanged.</li>
+</ul>
+</section>
+<section id="a-braver-prompt-for-step-2-annotating-your-improved-r-code" class="level3">
+<h3 class="anchored" data-anchor-id="a-braver-prompt-for-step-2-annotating-your-improved-r-code">A BRAVE(R) prompt for step 2: annotating your improved R code</h3>
+<p>Select a part of the code you would like to adapt according to the recommendation of the AI tool. Craft a BRAVE(R) prompt that asks an AI coding tutor to help you annotate your improved R code. Use the template below and adapt it to your own script.</p>
+<p>B – Boundaries: How long and detailed may the comments be?</p>
+<p>R – Role: Which role should the AI take (e.g.&nbsp;“R coding tutor for social science researchers”)?</p>
+<p>A – Audience: For whom are the comments written (e.g.&nbsp;“a researcher with basic R skills who needs to understand the workflow”)?</p>
+<p>V – Variables: Which parts should be annotated (e.g.&nbsp;each major code chunk, data‑cleaning steps, model fitting, plotting)?</p>
+<p>E – Expectations: What is the main goal (e.g.&nbsp;“add clear, correct comments so that another researcher can reproduce and understand my analysis”)?</p>
 
 
+</section>
 </section>
 </section>
 
