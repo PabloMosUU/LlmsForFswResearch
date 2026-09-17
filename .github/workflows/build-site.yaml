@@ -32,7 +32,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install R packages
-        run: Rscript -e 'install.packages(c("knitr", "rmarkdown"))'
+        run: Rscript -e 'install.packages(c("knitr", "rmarkdown", "ggplot2", "dplyr", "tidyr", "readr", "purrr", "stringr"))'
 
       - name: Set up Python
         uses: actions/setup-python@v5
