@@ -66,7 +66,10 @@ jobs:
           make
           
           # 3. Render the index to HTML
-          quarto render index.qmd --metadata department=${{ github.event.inputs.department }}
+          quarto render index.qmd -P department:${{ github.event.inputs.department }}
+          
+          # 4. Render the exercises to HTML
+          quarto render exercises/* --to html
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
