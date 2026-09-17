@@ -89,5 +89,33 @@
     "title": "How to handle LLMs in your research",
     "section": "",
     "text": "R Boxplot\nSPSS to R translation"
+  },
+  {
+    "objectID": "exercises/R_Boxplot_exercise.html",
+    "href": "exercises/R_Boxplot_exercise.html",
+    "title": "Responsible GenAI for Coding in R",
+    "section": "",
+    "text": "In this exercise you will learn how to use an AI tool to assist you with writing code in R using the BRAVE(R) framework and keeping human oversight. This is in contrast with letting the AI tool write the enitire code from scratch (ghostwriting): the AI produces R code to build a chart, but you do not learn how it works, and you cannot tell whether it is right.\nInstead you will proceed as follows:\n\nFind reliable code from a trusted, curated source.\nUnderstand it line by line, using AI as a tutor, not an author.\nAdapt it to your own study design.\nVerify the result (human oversight).\n\nDuring the exercise, AI is a sparring partner that explains and suggests. You remain the author and the final reviewer. If you cannot evaluate the output, that is a signal that you need to understand the topic better before you rely on the tool (human oversight).\n\nData safety reminder. Never paste private, unpublished, participant, or otherwise sensitive data into an AI tool. That is why this exercise uses simulated data that you generate yourself. The simulation code is provided below.\n\n\n\nBy the end of this exercise you will be able to:\n\nLocate trustworthy graphics code in the R Graph Gallery.\nRead and annotate ggplot2 code so that every line has a comment in your own words.\nAdapt a grouped boxplot from a 7 × 2 to a 4 × 3 study design.\nWrite prompts using the BRAVE(R) framework (Boundaries, Role, Audience, Variables, Expectations, Refine) to make Generative AI explain and refine code.\nApply human-oversight checks to confirm the boxplot matches the data."
+  },
+  {
+    "objectID": "exercises/R_Boxplot_exercise.html#learning-objectives",
+    "href": "exercises/R_Boxplot_exercise.html#learning-objectives",
+    "title": "Responsible GenAI for Coding in R",
+    "section": "",
+    "text": "By the end of this exercise you will be able to:\n\nLocate trustworthy graphics code in the R Graph Gallery.\nRead and annotate ggplot2 code so that every line has a comment in your own words.\nAdapt a grouped boxplot from a 7 × 2 to a 4 × 3 study design.\nWrite prompts using the BRAVE(R) framework (Boundaries, Role, Audience, Variables, Expectations, Refine) to make Generative AI explain and refine code.\nApply human-oversight checks to confirm the boxplot matches the data."
+  },
+  {
+    "objectID": "exercises/SPSS_to_R_translation_exercise.html",
+    "href": "exercises/SPSS_to_R_translation_exercise.html",
+    "title": "Translating SPSS Syntax into R with the BRAVE(R) Framework",
+    "section": "",
+    "text": "Asking an AI tool to translate SPSS syntax can be tricky if you accept the output uncritically. The R code will usually look right and run without error, but might use a different default than SPSS (a different variance assumption, a different skewness formula, a different way of handling missing data). The numbers then disagree, and you have no idea why.\nSo in this exercise AI is a translator you supervise:\n\nGive the AI a precise, well-scoped prompt using the BRAVE(R) framework.\nRead the translation and identify where R’s defaults differ from SPSS.\nRun the code on data you control and verify the results make sense.\n\n\nData safety reminder. Never paste real, unpublished, or participant data into a GenAI tool. This exercise uses simulated data you generate yourself, so nothing sensitive ever leaves your machine.\n\n\n\n\nWrite a BRAVE(R) prompt that asks AI to translate SPSS syntax into R.\nRecognise common SPSS versus R default mismatches and check for them.\nRun and verify an AI-produced translation against simulated data."
+  },
+  {
+    "objectID": "exercises/SPSS_to_R_translation_exercise.html#learning-objectives",
+    "href": "exercises/SPSS_to_R_translation_exercise.html#learning-objectives",
+    "title": "Translating SPSS Syntax into R with the BRAVE(R) Framework",
+    "section": "",
+    "text": "Write a BRAVE(R) prompt that asks AI to translate SPSS syntax into R.\nRecognise common SPSS versus R default mismatches and check for them.\nRun and verify an AI-produced translation against simulated data."
   }
 ]

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Laurence Frank">
+<meta name="dcterms.date" content="2026-09-17">
+
+<title>Responsible GenAI for Coding in R – Pablo Mosteiro</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3e9b1289f5f353c49b617ce48ad2bc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Pablo Mosteiro</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Responsible GenAI for Coding in R</h1>
+<p class="subtitle lead">Building a grouped boxplot with the BRAVE(R) framework</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Laurence Frank </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="purpose-of-the-exercise" class="level1">
+<h1>Purpose of the exercise</h1>
+<p>In this exercise you will learn how to use an AI tool to assist you with writing code in R using the BRAVE(R) framework and keeping human oversight. This is in contrast with letting the AI tool write the enitire code from scratch (<em>ghostwriting</em>): the AI produces R code to build a chart, but you do not learn how it works, and you cannot tell whether it is right.</p>
+<p>Instead you will proceed as follows:</p>
+<ol type="1">
+<li><strong>Find reliable code</strong> from a trusted, curated source.</li>
+<li><strong>Understand it</strong> line by line, using AI as a <em>tutor</em>, not an author.</li>
+<li><strong>Adapt it</strong> to your own study design.</li>
+<li><strong>Verify</strong> the result (human oversight).</li>
+</ol>
+<p>During the exercise, AI is a sparring partner that <em>explains</em> and <em>suggests</em>. You remain the author and the final reviewer. If you cannot evaluate the output, that is a signal that you need to understand the topic better before you rely on the tool (human oversight).</p>
+<blockquote class="blockquote">
+<p><strong>Data safety reminder.</strong> Never paste private, unpublished, participant, or otherwise sensitive data into an AI tool. That is why this exercise uses <strong>simulated data</strong> that you generate yourself. The simulation code is provided below.</p>
+</blockquote>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ul>
+<li>Locate trustworthy graphics code in the <strong>R Graph Gallery</strong>.</li>
+<li>Read and <strong>annotate</strong> ggplot2 code so that every line has a comment in your own words.</li>
+<li>Adapt a grouped boxplot from a <strong>7 × 2</strong> to a <strong>4 × 3</strong> study design.</li>
+<li>Write prompts using the <strong>BRAVE(R)</strong> framework (Boundaries, Role, Audience, Variables, Expectations, Refine) to make Generative AI <em>explain</em> and <em>refine</em> code.</li>
+<li>Apply <strong>human-oversight checks</strong> to confirm the boxplot matches the data.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="set-up-your-r-environment" class="level1">
+<h1>Set up your R environment</h1>
+<p>You only need to do <strong>one</strong> of the two options below.</p>
+<section id="option-a-you-already-have-rstudio-installed" class="level3">
+<h3 class="anchored" data-anchor-id="option-a-you-already-have-rstudio-installed">Option A: You already have RStudio installed</h3>
+<ol type="1">
+<li><p>Open <strong>RStudio</strong>.</p></li>
+<li><p>Create a new R Markdown file (or just open <em>this</em> file): <code>File ▸ New File ▸ R Markdown…</code>, then keep the HTML output and click <strong>OK</strong>. To open this handout: <code>File ▸ Open File…</code> and select <code>R_exercise.Rmd</code>.</p></li>
+<li><p>Install the one package you need (run this <strong>once</strong> in the <strong>Console</strong>, not in a chunk):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>To run a code chunk, click the small green ▶ (“Run Current Chunk”) at the top-right of the chunk, or place your cursor in it and press <strong>Ctrl+Shift+Enter</strong> (Windows/Linux) / <strong>Cmd+Shift+Enter</strong> (Mac).</p></li>
+<li><p>To produce the full HTML document, click <strong>Knit</strong> at the top of the editor.</p></li>
+</ol>
+</section>
+<section id="option-b-you-do-not-have-rstudio-use-posit-cloud-in-your-browser" class="level3">
+<h3 class="anchored" data-anchor-id="option-b-you-do-not-have-rstudio-use-posit-cloud-in-your-browser">Option B: You do not have RStudio: use Posit Cloud (in your browser)</h3>
+<p><a href="https://posit.cloud">Posit Cloud</a> runs RStudio in the browser — nothing to install.</p>
+<ol type="1">
+<li><p>Go to <strong>https://posit.cloud</strong> and click <strong>Sign Up</strong> (the free plan is enough).</p></li>
+<li><p>After logging in, click <strong>New Project ▸ New RStudio Project</strong>. Wait a few seconds for the workspace to load. You now have the full RStudio interface.</p></li>
+<li><p>Upload this file: in the <strong>Files</strong> pane (bottom-right) click <strong>Upload</strong>, choose <code>R_exercise.Rmd</code>, then click it to open.</p></li>
+<li><p>Install the package once in the <strong>Console</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Run chunks with the green ▶ button and <strong>Knit</strong> exactly as in Option A.</p></li>
+</ol>
+<p><strong>Tip.</strong> On the free Posit Cloud plan, projects have limited monthly hours. Close the project tab when you are done so you don’t burn through your time.</p>
+</section>
+<section id="load-the-package" class="level3">
+<h3 class="anchored" data-anchor-id="load-the-package">Load the package</h3>
+<p>Once <code>ggplot2</code> is installed, load it. This chunk runs at the top of every session.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="step-1-study-the-reference-graph" class="level1">
+<h1>Step 1: Study the reference graph</h1>
+<p>Open the R Graph Gallery page for a grouped boxplot:</p>
+<p><strong>https://r-graph-gallery.com/265-grouped-boxplot-with-ggplot2.html</strong></p>
+<p>The gallery example visualises <strong>7 groups</strong> (varieties A–G) split into <strong>2 subgroups</strong> (<code>high</code> / <code>low</code>) — a <strong>7 × 2</strong> design. The reference code builds its data and plot like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Reference code from the R Graph Gallery (7 x 2 design) ---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Reproduced here only so you can compare it to your own version.)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>variety   <span class="ot">&lt;-</span> <span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>], <span class="at">each =</span> <span class="dv">40</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>), <span class="at">each =</span> <span class="dv">20</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>note      <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">280</span>) <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">150</span>, <span class="dv">280</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>gallery_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(variety, treatment, note)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gallery_data, <span class="fu">aes</span>(<span class="at">x =</span> variety, <span class="at">y =</span> note, <span class="at">fill =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="R_Boxplot_exercise_files/figure-html/reference-gallery-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice the two ideas that make a <em>grouped</em> boxplot work:</p>
+<ul>
+<li>the <strong>group</strong> factor goes on the <code>x</code> axis (<code>x = variety</code>);</li>
+<li>the <strong>subgroup</strong> factor goes in <code>fill = treatment</code>, which splits each x position into one box per subgroup.</li>
+</ul>
+<hr>
+</section>
+<section id="step-2-your-scenario-and-simulated-data" class="level1">
+<h1>Step 2: Your scenario and simulated data</h1>
+<p><strong>The situation.</strong> You want a grouped boxplot for your data, like the gallery example, but the gallery shows a 7 × 2 design and <strong>your</strong> study is <strong>4 × 3</strong>. Suppose you have collected data from childeren, adolescents and adults about wellbeing in four different regions.</p>
+<ul>
+<li><strong>Factor 1 = <code>region</code></strong> (4 levels): <code>North</code>, <code>South</code>, <code>East</code>, <code>West</code></li>
+<li><strong>Factor 2 = <code>age_group</code></strong> (3 levels): <code>Children</code>, <code>Adolescents</code>, <code>Adults</code></li>
+<li><strong>Response variable = <code>wellbeing</code></strong>: a continuous self-report index (higher = better).</li>
+<li>20 respondents per combination leads to 4 × 3 × 20 = <strong>240 observations</strong>.</li>
+</ul>
+<p>Run the chunk below to create the simulated dataset. The simulation is fully provided, is reproducible (<code>set.seed</code>), and uses no external files.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># makes the random draw reproducible: everyone gets the same data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>n_rep <span class="ot">&lt;-</span> <span class="dv">20</span>    <span class="co"># number of respondents per region x age_group combination</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Build every combination of respondent, age_group and region.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># expand.grid() varies the FIRST listed factor fastest.</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">respondent =</span> <span class="dv">1</span><span class="sc">:</span>n_rep,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">age_group  =</span> <span class="fu">c</span>(<span class="st">"Children"</span>, <span class="st">"Adolescents"</span>, <span class="st">"Adults"</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">region     =</span> <span class="fu">c</span>(<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Effect sizes we are "baking into" the simulation, so we know the right answer.</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>region_effect <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">North =</span> <span class="dv">0</span>, <span class="at">South =</span> <span class="dv">3</span>, <span class="at">East =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">West =</span> <span class="dv">1</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>age_effect    <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Children =</span> <span class="dv">0</span>, <span class="at">Adolescents =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">Adults =</span> <span class="dv">2</span>)  <span class="co"># an "adolescent dip"</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the response: baseline 65 + region effect + age effect + noise.</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>study<span class="sc">$</span>wellbeing <span class="ot">&lt;-</span> <span class="dv">65</span> <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  region_effect[<span class="fu">as.character</span>(study<span class="sc">$</span>region)] <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  age_effect[<span class="fu">as.character</span>(study<span class="sc">$</span>age_group)] <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnorm</span>(<span class="fu">nrow</span>(study), <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">6</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix the order in which levels appear on the plot (instead of alphabetical).</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>study<span class="sc">$</span>region    <span class="ot">&lt;-</span> <span class="fu">factor</span>(study<span class="sc">$</span>region,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span>))</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>study<span class="sc">$</span>age_group <span class="ot">&lt;-</span> <span class="fu">factor</span>(study<span class="sc">$</span>age_group,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Children"</span>, <span class="st">"Adolescents"</span>, <span class="st">"Adults"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="step-3-understand-the-code-before-you-change-it" class="level1">
+<h1>Step 3 — Understand the code <em>before</em> you change it</h1>
+<p>Here you use AI as a <strong>tutor</strong> to explain the reference code so that you understand every line. Use the <strong>BRAVE(R)</strong> framework to write a focused prompt.</p>
+<section id="a-braver-prompt-to-explain-the-reference-code" class="level3">
+<h3 class="anchored" data-anchor-id="a-braver-prompt-to-explain-the-reference-code">A BRAVE(R) prompt to explain the reference code</h3>
+<p>The prompt might look like this:</p>
+<p><em>Please explain, line by line, how the following R code builds a grouped boxplot <strong>(E – Expectations)</strong>. For this task, take on the role of an R coding tutor <strong>(R – Role)</strong>. The explanation should suit a researcher who knows basic R but is new to ggplot2 <strong>(A – Audience)</strong>. For each line, tell me what it does and why it is needed, and explain specifically what the aes(), fill, and geom_boxplot() parts do <strong>(V – Variables)</strong>. Keep it concise: one or two sentences per line, no rewritten code <strong>(B – Boundaries)</strong>.</em></p>
+</section>
+<section id="copy-the-following-prompt-in-an-ai-tool-together-with-the-r-code" class="level3">
+<h3 class="anchored" data-anchor-id="copy-the-following-prompt-in-an-ai-tool-together-with-the-r-code">Copy the following prompt in an AI tool together with the R code:</h3>
+<p>Please explain, line by line, how the following R code builds a grouped boxplot. For this task, take on the role of an R coding tutor. The explanation should suit a researcher who knows basic R but is new to ggplot2. For each line, tell me what it does and why it is needed, and explain specifically what the <code>aes()</code>, <code>fill</code>, and <code>geom_boxplot()</code> parts do. Keep it concise: one or two sentences per line, no rewritten code.</p>
+<p>ggplot(gallery_data, aes(x = variety, y = note, fill = treatment)) + geom_boxplot()</p>
+</section>
+<section id="verify" class="level3">
+<h3 class="anchored" data-anchor-id="verify">Verify</h3>
+<p>Read the explanation against the official ggplot2 documentation (<code>?ggplot</code>, <code>?aes</code>, <code>?geom_boxplot</code> in the Console, or https://ggplot2.tidyverse.org). If the explanation and the docs disagree, the docs win.</p>
+</section>
+<section id="refine" class="level3">
+<h3 class="anchored" data-anchor-id="refine">Refine</h3>
+<p>If a part is still unclear, follow up. This might be a Refine step of the BRAVE(R) framework. Copy and past this prompt into the AI tool:</p>
+<p><em>I still don’t understand the difference between mapping a variable to fill versus to x. Can you explain what changes in the plot, with a one-line example for each?</em></p>
+<hr>
+</section>
+</section>
+<section id="step-4-adapt-and-build-your-plot" class="level1">
+<h1>Step 4: Adapt and build your plot</h1>
+<p>Remember the changes you want to make in the plot:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Reference (7 × 2)</th>
+<th>Your design (4 × 3)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>x = variety</code> (7 groups)</td>
+<td><code>x = region</code> (4 groups)</td>
+</tr>
+<tr class="even">
+<td><code>fill = treatment</code> (2 subgroups)</td>
+<td><code>fill = age_group</code> (3 subgroups)</td>
+</tr>
+<tr class="odd">
+<td><code>y = note</code></td>
+<td><code>y = wellbeing</code></td>
+</tr>
+<tr class="even">
+<td><code>data = gallery_data</code></td>
+<td><code>data = study</code></td>
+</tr>
+</tbody>
+</table>
+<section id="a-braver-prompt-to-help-you-adapt-the-code" class="level3">
+<h3 class="anchored" data-anchor-id="a-braver-prompt-to-help-you-adapt-the-code">A BRAVE(R) prompt to help you adapt the code</h3>
+<p>If you get stuck, ask AI to <em>guide</em> the change, not to hand you a finished script by using this example prompt:</p>
+<p><em>I have a working grouped boxplot for a 7 × 2 design and a simulated dataset <code>study</code> for a <strong>4 × 3</strong> design with columns <code>region</code> (4 levels), <code>age_group</code> (3 levels) and <code>wellbeing</code> <strong>(V)</strong>. I expect to adapt the code myself, so please tell me which arguments I need to change and why, rather than giving me the full solution <strong>(E, B)</strong>. Act as an R tutor <strong>(R)</strong> writing for a social-science researcher new to ggplot2 <strong>(A)</strong>. This is the code that I have now:</em></p>
+<p>ggplot(gallery_data, aes(x = variety, y = note, fill = treatment)) + geom_boxplot()</p>
+</section>
+<section id="copy-past-your-prompt-in-the-ai-tool-and-ajdust-the-code" class="level3">
+<h3 class="anchored" data-anchor-id="copy-past-your-prompt-in-the-ai-tool-and-ajdust-the-code">Copy past your prompt in the AI tool and ajdust the code</h3>
+<p>I have a working grouped boxplot for a 7 × 2 design and a simulated dataset <code>study</code> for a <strong>4 × 3</strong> design with columns <code>region</code> (4 levels), <code>age_group</code> (3 levels) and <code>wellbeing</code>. I expect to adapt the code myself, so please tell me which arguments I need to change and why, rather than giving me the full solution. Act as an R tutor writing for a social-science researcher new to ggplot2. This is the code that I have now:_</p>
+<p>ggplot(gallery_data, aes(x = variety, y = note, fill = treatment)) + geom_boxplot()</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &gt;&gt;&gt; YOUR </span><span class="al">TASK</span><span class="co">: complete the grouped boxplot for the 4 x 3 design &lt;&lt;&lt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(___, <span class="fu">aes</span>(<span class="at">x =</span> ____, <span class="at">y =</span> ____, <span class="at">fill =</span> ____)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you have adjusted the code correctly, the plot should look like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="R_Boxplot_exercise_files/figure-html/solutionplot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="step-5-human-oversight-check-the-output" class="level1">
+<h1>Step 5: Human oversight, check the output</h1>
+<p>A plot is only useful if it faithfully represents the data. Before you trust it, run these checks yourself:</p>
+<ul>
+<li><strong>Count the boxes.</strong> You should see 4 regions × 3 age groups = 12 boxes (4 x-axis positions, each split into 3 coloured boxes). If you see a different number, the mapping is wrong.</li>
+<li><strong>Check the legend.</strong> It should list exactly the 3 age groups.</li>
+<li><strong>Sanity-check against what you simulated.</strong> You built in an <em>adolescent dip</em> (<code>Adolescents</code> lowest, <code>Adults</code> highest) and made <code>South</code> the highest region. Do the box positions broadly match that? If the chart contradicts the known truth, suspect the <em>code</em>, not the data.</li>
+</ul>
+<p>Confirm your counts numerically. This is your “ground truth” to compare the plot against:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many boxes should appear, and is the design balanced?</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nlevels</span>(study<span class="sc">$</span>region) <span class="sc">*</span> <span class="fu">nlevels</span>(study<span class="sc">$</span>age_group)  <span class="co"># expected number of boxes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(study<span class="sc">$</span>region, study<span class="sc">$</span>age_group)              <span class="co"># all cells should be 20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       
+        Children Adolescents Adults
+  North       20          20     20
+  South       20          20     20
+  East        20          20     20
+  West        20          20     20</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Median wellbeing per cell — the plot's boxes should track these numbers.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(wellbeing <span class="sc">~</span> region <span class="sc">+</span> age_group, <span class="at">data =</span> study, <span class="at">FUN =</span> median)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   region   age_group wellbeing
+1   North    Children  65.71991
+2   South    Children  66.72901
+3    East    Children  62.90977
+4    West    Children  64.31710
+5   North Adolescents  60.16034
+6   South Adolescents  66.15119
+7    East Adolescents  57.37222
+8    West Adolescents  59.96154
+9   North      Adults  66.78575
+10  South      Adults  67.81669
+11   East      Adults  65.30924
+12   West      Adults  67.18027</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="step-6-refine-the-plot" class="level1">
+<h1>Step 6 — Refine the plot</h1>
+<p>Once the core plot is correct, you can refine its appearance. Treat each refinement as a small change that can be reviewed. Add one layer, re-knit, look. A BRAVE(R) refine prompt might look like this:</p>
+<p>My grouped boxplot is correct and I now want to polish it <strong>(E)</strong>. As an R/ggplot2 tutor <strong>(R)</strong>, for a researcher new to ggplot2 <strong>(A)</strong>, suggest how to add a clear axis labels and a title, apply theme_minimal(), and choose colour-blind-friendly colours <strong>(V)</strong>. Show me what I need to add to the R code below and add comments to each new line of code explaining what it does and why it is necessary to add <strong>(B)</strong>.</p>
+<section id="copy-and-past-the-prompt-into-the-ai-tool-with-the-r-code" class="level3">
+<h3 class="anchored" data-anchor-id="copy-and-past-the-prompt-into-the-ai-tool-with-the-r-code">Copy and past the prompt into the AI tool with the R code</h3>
+<p>My grouped boxplot is correct (see R code below) and I now want to polish it. As an R/ggplot2 tutor, for a researcher new to ggplot2, suggest how to add a clear axis labels and a title and choose colour-blind-friendly colours. Show me what I need to add to the R code below and add comments to each new line of code explaining what it does and why it is necessary to add.</p>
+<p>ggplot(study, aes(x = region, y = wellbeing, fill = age_group)) + geom_boxplot()</p>
+<p>A refined version would look like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(study, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> wellbeing, <span class="at">fill =</span> age_group)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Wellbeing by region and age group (4 x 3 design)"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Region"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Wellbeing index"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Age group"</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>()   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="R_Boxplot_exercise_files/figure-html/refine-example-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="step-7-reflection" class="level1">
+<h1>Step 7 — Reflection</h1>
+<p>Write a few sentences in answer to each:</p>
+<ol type="1">
+<li>Which BRAVE(R) component made the biggest difference to the usefulness of the AI’s answers, and why?</li>
+<li>Where did human oversight catch something the AI got wrong or that you simply needed to verify?</li>
+<li>How is “find reliable code and understand it” different from “ask the AI to write it for me” in terms of the reliability of your results?</li>
+<li>The simulation uses <code>set.seed(123)</code>. Why does reproducibility matter when you are checking whether your code is correct? —</li>
+</ol>
+<p><em>Reference graph: R Graph Gallery, “Grouped boxplot with ggplot2” (https://r-graph-gallery.com/265-grouped-boxplot-with-ggplot2.html). BRAVE(R) framework: Fox &amp; Boelen, GSLS GenAI Teacher Tutorial, Chapter 3, CC BY-SA-NC 4.0.</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
