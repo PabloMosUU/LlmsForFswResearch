@@ -74,7 +74,7 @@ jobs:
       - name: Copy supporting files
         run: |
           mkdir -p _site/exercises
-          cp exercises/CodeExample.md _site/exercises/CodeExample.md
+          cp exercises/files/CodeExample.md _site/exercises/CodeExample.md
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
