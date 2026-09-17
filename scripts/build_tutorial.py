@@ -12,8 +12,19 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 ROOT = Path(__file__).resolve().parents[1]
 
-TEMPLATE_NAME = "tutorial_template.md"
-DEFAULTS_PATH = ROOT / "tutorial_assets" / "default.yml"
+TEMPLATE_PROFILES = {
+    "uu-chat": {
+        "template": ROOT / "tutorial_template_uu_chat.md",
+        "defaults": ROOT / "tutorial_assets" / "default_uu_chat.yml",
+    },
+    "legacy": {
+        "template": ROOT / "tutorial_template_legacy.md",
+        "defaults": ROOT / "tutorial_assets" / "default_legacy.yml",
+    },
+}
+
+DEFAULT_TEMPLATE_PROFILE = "uu-chat"
+
 DEPARTMENTS_DIR = ROOT / "tutorial_assets" / "departments"
 TUTORIALS_DIR = ROOT / "tutorials"
 DATA_ANNOTATION_PROMPT_PATH = ROOT / "tutorial_assets" / "data_annotation_prompt_example.txt"
@@ -287,8 +298,22 @@ def validate_config(config: dict[str, Any], source: Path) -> None:
         validate_slug(config["slug"], source)
 
 
-def load_merged_config(slug: str) -> dict[str, Any]:
-    defaults = load_yaml(DEFAULTS_PATH)
+def get_template_profile(template_profile: str) -> dict[str, Path]:
+    try:
+        return TEMPLATE_PROFILES[template_profile]
+    except KeyError as exc:
+        raise ValueError(
+            f"Unknown template profile: {template_profile!r}. "
+            f"Choose from: {', '.join(sorted(TEMPLATE_PROFILES))}"
+        ) from exc
+
+
+def load_merged_config(
+    slug: str,
+    template_profile: str = DEFAULT_TEMPLATE_PROFILE,
+) -> dict[str, Any]:
+    profile = get_template_profile(template_profile)
+    defaults = load_yaml(profile["defaults"])
 
     department_path = DEPARTMENTS_DIR / f"{slug}.yml"
     if not department_path.exists():
@@ -305,8 +330,12 @@ def load_merged_config(slug: str) -> dict[str, Any]:
     return merged
 
 
-def build_one(slug: str) -> dict[str, Path]:
-    config = load_merged_config(slug)
+def build_one(
+    slug: str,
+    template_profile: str = DEFAULT_TEMPLATE_PROFILE,
+) -> dict[str, Path]:
+    profile = get_template_profile(template_profile)
+    config = load_merged_config(slug, template_profile)
     render_config = add_framework_links(config)
     render_config["data_annotation_prompt_example_html"] = encode_text_for_html_pre(
         load_data_annotation_prompt()
@@ -325,7 +354,7 @@ def build_one(slug: str) -> dict[str, Path]:
         comment_end_string="#>",
     )
 
-    template = env.get_template(TEMPLATE_NAME)
+    template = env.get_template(profile["template"].name)
     markdown_output = template.render(**render_config)
 
     tutorial_dir = TUTORIALS_DIR / config["slug"]
@@ -355,31 +384,43 @@ def available_departments() -> list[str]:
     return sorted(path.stem for path in DEPARTMENTS_DIR.glob("*.yml"))
 
 
-def validate_all() -> None:
+def validate_all(
+    template_profile: str = DEFAULT_TEMPLATE_PROFILE,
+) -> None:
     load_data_annotation_prompt()
+    profile = get_template_profile(template_profile)
 
-    if not DEFAULTS_PATH.exists():
-        raise FileNotFoundError(f"Missing defaults file: {DEFAULTS_PATH}")
+    if not profile["defaults"].exists():
+        raise FileNotFoundError(
+            f"Missing defaults file for {template_profile}: {profile['defaults']}"
+        )
 
-    if not (ROOT / TEMPLATE_NAME).exists():
-        raise FileNotFoundError(f"Missing template file: {ROOT / TEMPLATE_NAME}")
+    if not profile["template"].exists():
+        raise FileNotFoundError(
+            f"Missing template file for {template_profile}: {profile['template']}"
+        )
 
     departments = available_departments()
     if not departments:
         raise FileNotFoundError(f"No department configs found in {DEPARTMENTS_DIR}")
 
     for slug in departments:
-        load_merged_config(slug)
+        load_merged_config(slug, template_profile)
 
-    print("All merged tutorial configs are valid.")
+    print(
+        f"All merged tutorial configs are valid "
+        f"for template profile '{template_profile}'."
+    )
 
 
-def build_all() -> list[dict[str, Path]]:
+def build_all(
+    template_profile: str = DEFAULT_TEMPLATE_PROFILE,
+) -> list[dict[str, Path]]:
     departments = available_departments()
     if not departments:
         raise FileNotFoundError(f"No department configs found in {DEPARTMENTS_DIR}")
 
-    return [build_one(slug) for slug in departments]
+    return [build_one(slug, template_profile) for slug in departments]
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -387,6 +428,15 @@ def main() -> None:
         "--department",
         required=True,
         help="Department slug, e.g. kp, isw, or all.",
+    )
+    parser.add_argument(
+        "--template",
+        choices=sorted(TEMPLATE_PROFILES),
+        default=DEFAULT_TEMPLATE_PROFILE,
+        help=(
+            "Tutorial template profile to use. "
+            f"Defaults to {DEFAULT_TEMPLATE_PROFILE!r}."
+        ),
     )
     parser.add_argument(
         "--validate-only",
@@ -403,17 +453,20 @@ def main() -> None:
 
     if args.validate_only:
         if args.department == "all":
-            validate_all()
+            validate_all(args.template)
         else:
             load_data_annotation_prompt()
-            load_merged_config(args.department)
-            print(f"Merged config for {args.department} is valid.")
+            load_merged_config(args.department, args.template)
+            print(
+                f"Merged config for {args.department} is valid "
+                f"for template profile '{args.template}'."
+            )
         return
 
     if args.department == "all":
-        outputs = build_all()
+        outputs = build_all(args.template)
     else:
-        outputs = [build_one(args.department)]
+        outputs = [build_one(args.department, args.template)]
 
     rendered_html = []
 
@@ -421,6 +474,7 @@ def main() -> None:
         for output in outputs:
             rendered_html.append(render_html(output["qmd"]))
 
+    print(f"Template profile: {args.template}")
     print("Built tutorial files:")
     for output in outputs:
         print(f"- {output['md'].relative_to(ROOT)}")

@@ -1,0 +1,200 @@
+slug: deeds
+department: Development & Education of Youth in Diverse Societies
+example_1:
+  title: Extract information from an observation
+  scenario: You have a short classroom observation about multilingual pupils' participation during a collaborative learning activity.
+  prompt: |-
+    Extract the key information from the classroom observation below.
+
+    Identify:
+    1. Observable instances of participation and language use.
+    2. Teacher or peer actions that may be relevant to participation.
+    3. Ambiguities or missing context.
+
+    Support your points with details from the observation. Separate observation from interpretation, and do not infer traits or motives that are not directly supported.
+
+    Observation:
+    "During a small-group science task, the teacher asked pupils to discuss why one object floated and another sank. Lina first discussed her idea quietly in Arabic with Samira. Samira then summarized part of their discussion in Dutch. The teacher told the group that they could use any language while working out the problem, but that the group should present its final explanation in Dutch. Later, Lina raised her hand when the teacher asked groups to report back, but another pupil from the group answered after the teacher called on the group. At the end of the lesson, Lina completed the written explanation independently."
+  task: Use the BRAVE(R) framework to analyze the prompt, then use the FACTS framework to analyze the response. Discuss your evaluation with a classmate.
+  reflection: |-
+    1. Did the model distinguish observation from interpretation?
+    2. Did it support its claims with details from the excerpt?
+    3. What would you need to know before drawing broader conclusions about participation or inclusion?
+example_2:
+  title: Analyze two focus-group texts
+  scenario: You want to explore caregivers' needs, challenges, strategies, and cultural factors related to toilet training autistic children using two synthetic focus-group excerpts.
+  prompt: |
+    Analyze the two synthetic focus-group excerpts below in relation to this research question:
+
+    What are the needs, challenges, strategies, and cultural factors that shape toilet-training practices for autistic children in these two focus groups?
+
+    Identify evidence for each of the four themes. Keep the two focus groups distinguishable, support interpretations with speaker IDs or short excerpts, and note ambiguity rather than filling in missing information.
+
+    These texts are fictional training materials. Do not treat them as representative of caregivers, autistic children, or toilet-training practices in Malaysia or Morocco.
+
+    Focus group 1 — Malaysia:
+
+    Moderator: What has been most difficult about toilet training for your child?
+
+    M1: "My son does not always tell us that he needs the toilet. Sometimes we notice from his behaviour, but by then it can be too late. I would like clearer guidance on how to recognise his signals without pushing him too much."
+
+    M2: "For my daughter, the bathroom itself can be difficult. She dislikes the sound of the flush and gets upset when the floor is wet. At home we let her leave before we flush, and we use the same picture sequence every time. Public toilets are harder because we cannot control the noise."
+
+    M3: "The family also has different ideas about when a child should already be toilet trained. Some relatives compare my son with his cousins and ask why he still needs help. That creates pressure. His grandmother wanted us to put him on the toilet at fixed times very often, but he became resistant. We eventually agreed on a routine that gives him more time."
+
+    Moderator: Are there differences between places where your child uses the toilet?
+
+    M4: "Yes. At home we have a sitting toilet, but at my parents' house there is a squat toilet. My daughter was confused by the change. We used pictures and a small foot support to practise the different steps before visiting them."
+
+    M1: "Consistency between home and school helps us most. When the teacher started using the same words and picture card that we use at home, my son understood the routine more quickly."
+
+    M3: "I would also like information that everyone in the family can use. Some guidance we received was in English and was too detailed for my mother. A short version with pictures and simple Malay would make it easier for us to follow the same approach."
+
+    Moderator: What strategies have been helpful?
+
+    M2: "A predictable routine, pictures, and not making an accident into a big event. If she is distressed, we stop and try later. The biggest improvement came when home and school agreed on the same steps."
+
+
+    Focus group 2 — Morocco:
+
+    Moderator: Chno huwa akbar taḥaddi f toilet training? [What is the biggest challenge in toilet training?]
+
+    R1: "Bnti katjbed yeddi ila bghat chi haja, walakin ma kanʿrafch dima wash katqsed toilette." [My daughter takes my hand when she wants something, but I do not always know whether she means the toilet.] "I need practical ways to help her communicate the need earlier without expecting spoken words."
+
+    R2: "Mon fils est très sensible au bruit dans les toilettes." [My son is very sensitive to noise in bathrooms.] "The echo and the hand dryer in some places frighten him. We first practised when the bathroom was quiet and used a simple visual sequence. Now he manages at home, but unfamiliar toilets are still difficult."
+
+    R3: "Several relatives are involved because we live close to my parents and they help with care. That can be useful, but everyone gives different advice. Waḥed kaygol khassek tkon ṣarem, waḥed kaygol khallih b raḥto." [One person says you should be strict, another says leave him at his own pace.] "We found it works better when everybody follows the same routine and accidents do not become a conflict."
+
+    Moderator: Are there household or family practices that affect the routine?
+
+    R4: "In our home we normally use water for cleaning after the toilet. My son disliked the sensation at first, so we introduced it gradually and let him control when the water touched his skin. At school the routine is different, so moving between the two settings still takes preparation."
+
+    R1: "Some information we received was in French. Moi, je peux le lire, mais ma mère préfère l'arabe, et à la maison on parle surtout darija." [I can read it, but my mother prefers Arabic, and at home we mostly speak Darija.] "Pictures and short instructions that all caregivers understand would make it easier to stay consistent."
+
+    Moderator: What has helped most?
+
+    R2: "La coordination avec l'enseignante." [Coordination with the teacher.] "We agreed on the same cue and roughly the same sequence of steps. We also stopped treating speed as the main goal. When he became anxious, we went back to an easier step and tried again later."
+
+    R3: "For us it was important that relatives understood that the same approach does not work for every child. Once we agreed on a routine and stopped comparing him with other children, there was less tension around toileting."
+  task: |-
+    Before sending the prompt, adapt it using the BRAVE(R) framework. For example, decide how you want the four themes organized and what kind of evidence the response should provide.
+
+    If useful, create a **Project** for the exercise and a simple **Persona** with reusable qualitative-analysis instructions, such as staying close to the supplied texts and distinguishing evidence from interpretation.
+
+    Then run the prompt and use the FACTS framework to evaluate the response.
+
+    **Data protection:** These excerpts are synthetic. Before using real focus-group, interview, or other research data that may contain personal or sensitive information with GenAI, check the applicable requirements with the relevant privacy or data-protection contact. Do not assume that using UU AI-Chat alone is sufficient clearance.
+  reflection: |-
+    1. Did the model distinguish the four themes and support them with evidence from the texts?
+    2. Did it preserve differences between the two focus groups rather than generalising from them?
+    3. Which instructions would be useful to save in a reusable Persona, and which are specific to this research question?
+example_3:
+  title: Assess the relevance of research
+  scenario: You need to quickly assess whether a paper is relevant to research on children's development, learning, participation, or educational contexts.
+  prompt: |-
+    Summarize the research abstract below for a researcher deciding whether the study is relevant to their work on child or youth development and education.
+
+    Provide:
+    1. The research question, population, and setting.
+    2. The study design and main concepts or outcomes.
+    3. The main findings.
+    4. Any stated limitations or boundary conditions.
+    5. What would require reading the full paper.
+
+    If relevant, note how diversity, inequality, social context, or participation is addressed. Use only information from the abstract and mark uncertainty clearly.
+
+    Abstract:
+    [INSERT ABSTRACT TEXT HERE]
+  task: Use the FACTS framework to analyze the response. Discuss your evaluation with a classmate.
+  reflection: |-
+    1. Did the model stay within what the abstract actually supports?
+    2. Did it avoid overstating causality or generalisability?
+    3. Would the summary help you decide whether to read the full paper?
+example_4:
+  enabled: false
+  title: Optimize and verify R code
+  scenario: You have R code used in a research workflow and want to improve it without changing the analysis or results.
+  instructions: |-
+    Use **your own R code**, another piece of R code you are interested in, or the example below.
+
+    Give the AI enough context to understand what the code is intended to do, then adapt this prompt:
+
+    ```default
+    Review and optimize the R code below for a scientific research workflow.
+
+    Context:
+    [WHAT SHOULD THE CODE DO? WHAT ARE THE IMPORTANT INPUTS AND OUTPUTS?]
+
+
+    Improve the code where useful, focusing on readability and efficiency while preserving the analysis and its output.
+
+    Explain the main changes, flag any assumptions or new package dependencies, and suggest a simple way to check that the revised code gives equivalent results. Do not claim performance improvements unless they are actually measured.
+
+    R code:
+    [PASTE R CODE HERE]
+
+    ```
+
+    **If you need example code**, use this:
+
+    ```r
+    schools <- unique(df$school_id)
+    result <- data.frame()
+
+    for (i in seq_along(schools)) {
+      this_school <- schools[i]
+      tmp <- df[df$school_id == this_school & !is.na(df$score), ]
+
+      result <- rbind(
+        result,
+        data.frame(
+          school_id = this_school,
+          n = nrow(tmp),
+          mean_score = if (nrow(tmp) == 0) NA_real_ else mean(tmp$score)
+        )
+      )
+    }
+
+    result <- result[order(result$school_id), ]
+    ```
+
+    Assume `df` contains a school identifier and a numeric `score` that may be missing. The output should contain one row per school, including schools with only missing scores, and should remain ordered by `school_id`.
+  task: Compare the original and revised code. Check whether the behaviour that matters for the analysis is preserved, and run the suggested checks in R if possible. Ask at least one follow-up question about a change or assumption you do not fully understand.
+  reflection: |-
+    1. Did the revised code preserve the intended analysis and important edge cases?
+    2. Were the main changes and assumptions clear?
+    3. What would you test before using the revised code in a real analysis?
+exercise_1:
+  title: Verify generated literature
+  task: |-
+    Ask the model:
+
+    ```default
+    Find three peer-reviewed empirical studies published in 2026 about digital technologies and social participation, learning, or development among children or adolescents. For each study, provide the title, authors, journal, DOI, study population, and one-sentence main finding.
+    ```
+
+    Verify the references and findings using reliable external sources such as journal websites, Crossref, Google Scholar, or another academic database.
+  reflection: |-
+    1. Do the publications and bibliographic details exist as given?
+    2. Do the reported findings match the original sources?
+    3. What would make this literature-search workflow more reliable?
+exercise_2:
+  title: Detect assumptions in a research question
+  task: |-
+    Compare responses to these two prompts:
+
+    **Prompt A:**
+    ```default
+    Explain why multilingual children participate less in classroom discussions than monolingual children.
+    ```
+
+    **Prompt B:**
+    ```default
+    Discuss factors that may be associated with variation in classroom participation among multilingual and monolingual children. Do not assume that a group difference exists. Distinguish empirical evidence from possible explanations.
+    ```
+
+    Compare how the framing affects what the model treats as established.
+  reflection: |-
+    1. Did Prompt A encourage the model to accept an unsupported assumption?
+    2. Did either response overgeneralise or rely on stereotypes?
+    3. How could you phrase your own research questions to reduce leading assumptions?
